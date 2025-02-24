@@ -31,7 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "webportal",
+    "home",
+    "users",
+    "eventlog",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -118,7 +120,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILE_DIRS = [
-    BASE_DIR / "webportal/static",
+    BASE_DIR / "home/static",
 ]
 
 # Default primary key field type
