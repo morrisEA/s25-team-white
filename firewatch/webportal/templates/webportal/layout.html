@@ -1,10 +1,23 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Fire Watch | Armory and Fire Control Solutions</title>
-  </head>
-  <body>
-  {% block body %}
-  {% endblock %}
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Fire Watch Solutions{% endblock %}</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/main/">Main Page</a></li>
+            <li><a href="/login/">Login</a></li>
+            <li><a href="#">Another Link</a></li>
+        </ul>
+    </nav>
+    
+    <div>
+        {% block content %}
+        <!-- Default content can go here -->
+        {% endblock %}
+    </div>
+</body>
 </html>
