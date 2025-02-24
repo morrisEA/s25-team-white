@@ -5,16 +5,22 @@ Login
 {% endblock %}
 
 {% block body %}
+<div id="container">
 <div class="login-container">
   <form class="login-form" action="{% url 'users:login' %}" method="POST">
     {% csrf_token %}
-    <h2>Fire Watch</h2>
+    <h2>Fire Watch users</h2>
     {% if message %}
         <div style="color:red;">{{ message }}</div>
     {% endif %}
-    <div><input type="text" name="username" placeholder="Username" required></div>
-    <div><input type="password" name="password" placeholder="Password" required></div>
+    <div>
+      <label for="id_username">Username:</label>
+      <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" placeholder="Username" required></div>
+    <div>
+      <label for="id_password">Password:</label>
+      <input type="password" name="password" autocomplete="current-password" placeholder="Password" required></div>
     <input type="submit" value="Login">
   </form>
+</div>
 </div>
 {% endblock %}
