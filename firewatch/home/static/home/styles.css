@@ -53,8 +53,8 @@ body.navbar-page{
 
 
 /*login page styles*/
-body.login-page {
-    background-color: #242424;
+body.page-color {
+    background-color: #181d27;
 }
 
 .login-container {

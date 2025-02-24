@@ -10,15 +10,14 @@
     <link rel="stylesheet" type="text/css" href="{% static 'home/styles.css' %}">
 </head>
 
-<body>
+<body class="page-color">
     <nav class="navbar"> 
         <ul>
-          <li><a href="{% url 'index' %}" class="{% if request.path == '/' %}active{% endif %}">Home</a></li>
-          <li><a href="{% url 'eventlog' %}" class="{% if request.path == '/eventlog/' %}active{% endif %}">Event Log</a></li>
-          <li><a href="{% url 'login' %}" class="{% if request.path == '/login/' %}active{% endif %}">Login</a></li>
+          <li><a href="{% url 'home:index' %}" class="{% if request.path == '/' %}active{% endif %}">Home</a></li>
+          <li><a href="{% url 'eventlog:eventlog' %}" class="{% if request.path == '/eventlog/' %}active{% endif %}">Event Log</a></li>
+          <li><a href="{% url 'users:login' %}" class="{% if request.path == '/login/' %}active{% endif %}">Login</a></li>
         </ul>
     </nav>
-    
     <div class="content"> 
         {% block body %}
         {% endblock %}
