@@ -1,25 +1,27 @@
 <!DOCTYPE html>
+{% load static %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Fire Watch Solutions{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'webportal/styles.css' %}">
 </head>
 
-<!--BAsic navbar for ease of access on different pages-->
-<body>
-    <nav>
+<body class="navbar-page">
+    <nav class="navbar"> 
         <ul>
-          <li><a href="/main/">Admin</a></li>
-          <li><a href="/inventory/">Inventory</a></li>
-          <li><a href="/scan/">Scan</a></li>
-          <li><a href="/logs/">Logs</a></li>
-          <li><a href="/notifications/">Notifications</a></li>
-          <li><a href="/login/">Login</a></li>
+          <li><a href="/main/" class="{% if request.path == '/main/' %}active{% endif %}">Admin</a></li>
+          <li><a href="/inventory/" class="{% if request.path == '/inventory/' %}active{% endif %}">Inventory</a></li>
+          <li><a href="/scan/" class="{% if request.path == '/scan/' %}active{% endif %}">Scan</a></li>
+          <li><a href="/logs/" class="{% if request.path == '/logs/' %}active{% endif %}">Logs</a></li>
+          <li><a href="/notifications/" class="{% if request.path == '/notifications/' %}active{% endif %}">Notifications</a></li>
+          <li><a href="/login/" class="{% if request.path == '/login/' %}active{% endif %}">Login</a></li>
         </ul>
     </nav>
     
-    <div>
+    <div class="content"> 
         {% block content %}
         {% endblock %}
     </div>

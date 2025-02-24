@@ -1,0 +1,109 @@
+/*layout.html navbar styles*/
+body.navbar-page{
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #333; 
+    overflow: hidden; 
+    width: 100%; 
+    position: fixed; 
+    top: 0; 
+    z-index: 1000; 
+    border-bottom: 2px solid #ddd; 
+}
+
+.navbar ul {
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0; 
+    display: flex; 
+    justify-content: flex-end;
+}
+
+.navbar li {
+    margin-left: 20px; 
+}
+
+.navbar a {
+    display: block; 
+    color: white; 
+    text-align: center; 
+    padding: 14px 16px; 
+    text-decoration: none; 
+    transition: background-color 0.3s;
+}
+
+.navbar a:hover {
+    background-color: #575757; 
+}
+
+.navbar a.active {
+    background-color: #575757;
+    border-radius: 5px;
+}
+
+.content {
+    margin-top: 60px; 
+}
+
+
+/*login page styles*/
+body.login-page {
+    background-color: #242424;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-form {
+    background: rgb(100, 100, 100);
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 400px;
+}
+
+.login-form h2 {
+    font-family: 'Roboto' , sans-serif;
+    font-size: 2.5rem;
+    text-align: center;
+    color: white;
+}
+
+.login-form div {
+    margin-bottom: 15px;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.login-form button {
+    background-color: #f8fff8;
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.login-form button:hover {
+    background-color: #4cae4c;
+}
+
+/*main & admin page styles*/
