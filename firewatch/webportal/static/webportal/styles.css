@@ -10,8 +10,10 @@ body.navbar-page{
     width: 100%; 
     position: fixed; 
     top: 0; 
+    left: 0; 
     z-index: 1000; 
     border-bottom: 2px solid #ddd; 
+    font-family: 'Roboto', sans-serif; 
 }
 
 .navbar ul {
@@ -20,6 +22,7 @@ body.navbar-page{
     padding: 0; 
     display: flex; 
     justify-content: flex-end;
+    width: 100%;
 }
 
 .navbar li {

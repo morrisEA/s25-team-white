@@ -6,10 +6,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Fire Watch Solutions{% endblock %}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <link rel="stylesheet" type="text/css" href="{% static 'webportal/styles.css' %}">
 </head>
 
-<body class="navbar-page">
+<body>
     <nav class="navbar"> 
         <ul>
           <li><a href="/main/" class="{% if request.path == '/main/' %}active{% endif %}">Admin</a></li>
