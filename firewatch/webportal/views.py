@@ -17,3 +17,15 @@ def login_view(request):
 
 def main_view(request):
     return render(request, "webportal/main.html")
+
+def inventory_view(request):
+    return render(request, "webportal/inventory.html")  
+
+def scan_view(request):
+    return render(request, "webportal/scan.html")  
+
+def logs_view(request):
+    return render(request, "webportal/logs.html")  
+
+def notifications_view(request):
+    return render(request, "webportal/notifications.html") 
