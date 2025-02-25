@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "home",
     "users",
     "eventlog",
+    "armory",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
