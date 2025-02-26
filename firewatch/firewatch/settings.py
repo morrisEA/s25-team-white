@@ -9,9 +9,9 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
-
+from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -19,13 +19,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
+#load env var from .env file
+load_dotenv(os.path.join(BASE_DIR, ".env"))
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-ul-%n4i-8szt2-8)-&h1d4%i=^zr04xft6_(4@)q5uxrvp_&!@"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
 
 # Application definition
@@ -35,6 +39,7 @@ INSTALLED_APPS = [
     "users",
     "eventlog",
     "armory",
+    "authentication.apps.AuthenticationConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -77,13 +82,35 @@ WSGI_APPLICATION = "firewatch.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# Dynamic Database Selection
+DATABASE_TYPE = os.getenv("FIREWATCH_DB_TYPE", "SQL")
 
+DATABASES = {}
+
+if DATABASE_TYPE == "SQL":
+    SQL_ENGINE = os.getenv("SQL_ENGINE", "django.db.backends.sqlite3")
+
+    if SQL_ENGINE == "django.db.backends.sqlite3":
+        DATABASES["default"] = {
+            "ENGINE": SQL_ENGINE,
+            "NAME": BASE_DIR / "db.sqlite3",  
+        }
+    else:
+        DATABASES["default"] = {
+            "ENGINE": SQL_ENGINE,
+            "NAME": os.getenv("DB_NAME", "firewatch_db"),
+            "USER": os.getenv("DB_USER", "postgres"),
+            "PASSWORD": os.getenv("DB_PASSWORD", "yourpassword"),
+            "HOST": os.getenv("DB_HOST", "localhost"),
+            "PORT": os.getenv("DB_PORT", "5432"),
+        }
+
+elif DATABASE_TYPE == "NoSQL":
+    DATABASES = {}  
+    FIREWATCH_MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017/firewatch")
+
+else:
+    raise ValueError(f"Unsupported database type: {DATABASE_TYPE}")
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -103,6 +130,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = "authentication.MilitaryPersonnel"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -120,7 +148,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILE_DIRS = [
+STATICFILES_DIRS = [
     BASE_DIR / "home/static",
 ]
 
