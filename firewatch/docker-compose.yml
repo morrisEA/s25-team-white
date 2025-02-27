@@ -1,0 +1,56 @@
+services:
+  django:
+    build: .
+    container_name: firewatch_django
+    restart: always
+    depends_on:
+      - postgres
+      - mongo
+    environment:
+      SECRET_KEY: "your-secret-key"
+      DEBUG: "True"
+      
+      
+      FIREWATCH_DB_TYPE: "AUTO" 
+
+      
+      SQL_ENGINE: "django.db.backends.postgresql"
+      DB_NAME: "firewatch_db"
+      DB_USER: "firewatch_user"
+      DB_PASSWORD: "firewatch_pass"
+      DB_HOST: "postgres"
+      DB_PORT: "5432"
+
+      
+      MONGO_URI: "mongodb://mongo:27017/firewatch"
+
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+
+  postgres:
+    image: postgres:15
+    container_name: firewatch_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: "firewatch_db"
+      POSTGRES_USER: "firewatch_user"
+      POSTGRES_PASSWORD: "firewatch_pass"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  mongo:
+    image: mongo:5.0
+    container_name: firewatch_mongo
+    restart: always
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+volumes:
+  postgres_data:
+  mongo_data:
