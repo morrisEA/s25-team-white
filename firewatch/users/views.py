@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import authenticate, login, logout
 from armory.models import ServiceMember
-
+from armory.models import Watch 
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
@@ -41,4 +42,21 @@ def logout_view(request):
 
 
 
+
+@login_required
+def dashboard(request):
+    """Display user's active watches"""
+    servicemember = getattr(request.user, "servicemember", None)
+
+    if servicemember:
+        watches = Watch.objects.filter(member_id=servicemember)
+        has_active_watch = watches.filter(check_out_time__isnull=False, check_in_time__isnull=True).exists()
+    else:
+        watches = []
+        has_active_watch = False
+
+    return render(request, "users/dashboard.html", {
+        "watches": watches,
+        "has_active_watch": has_active_watch
+    })
 

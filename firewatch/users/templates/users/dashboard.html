@@ -1,6 +1,6 @@
 {% extends "users/layout.html" %}
 
-{% block title%}
+{% block title %}
 Dashboard
 {% endblock %}
 
@@ -9,16 +9,16 @@ Dashboard
 <div id="center-content">
     <div id="content-spacing"></div>
     <div id="info-container">
-      <div id="left-info">          
-      <ul>
-        <li><strong>Username:</strong> {{ request.user.username }}</li>
-        <li>Email: {{ request.user.email }}</li>
-        <li>Full Name: {{ request.user.get_full_name }}</li>
-        <li>First Name: {{ request.user.first_name }}</li>
-        <li>Last Name: {{ request.user.last_name }}</li>
-        <li>Account Created: {{ request.user.date_joined|date:"M d, Y H:i" }}</li>
-        <li>Last Login: {{ request.user.last_login|date:"M d, Y H:i" }}</li>
-        {% if servicemember %}
+        <div id="left-info">          
+            <ul>
+                <li><strong>Username:</strong> {{ request.user.username }}</li>
+                <li>Email: {{ request.user.email }}</li>
+                <li>Full Name: {{ request.user.get_full_name }}</li>
+                <li>First Name: {{ request.user.first_name }}</li>
+                <li>Last Name: {{ request.user.last_name }}</li>
+                <li>Account Created: {{ request.user.date_joined|date:"M d, Y H:i" }}</li>
+                <li>Last Login: {{ request.user.last_login|date:"M d, Y H:i" }}</li>
+                {% if servicemember %}
                     <li><strong>First Name:</strong> {{ servicemember.first }}</li>
                     <li><strong>Last Name:</strong> {{ servicemember.last }}</li>
                     <li><strong>Rank:</strong> {{ servicemember.rank }}</li>
@@ -27,18 +27,46 @@ Dashboard
                 {% else %}
                     <li><strong>Service Member Info:</strong> Not available</li>
                 {% endif %}
-      </ul></div>
-       <div id="right-container">
-        <div id="right-title"><h2>Account Overview</h2></div>
-        <div id="right-info"> </div>
-        <div id="right-info"></div>
-        <div id="right-info"></div>
-        <div id="logout-link"><a href="{% url 'users:logout' %}">Log Out</a></div>
-      </div>
-
-
-            
-        
+            </ul>
+        </div>
+        <div id="right-container">
+            <div id="right-title">
+                <h2>Account Overview</h2>
+            </div>
+            <div id="command-watch-buttons">
+          
+          
+              {% for watch in watches %}
+                  {% if not watch.check_out_time %}
+                      
+                      <form action="{% url 'watch_check_out' watch.id %}" method="POST">
+                          {% csrf_token %}
+                          <button type="submit" class="btn">Check Out</button>
+                      </form>
+                  {% else %}
+                      <p>Checked Out at: {{ watch.check_out_time }}</p>
+                      {% if not watch.check_in_time %}
+                         
+                          <form action="{% url 'watch_check_in' watch.id %}" method="POST">
+                              {% csrf_token %}
+                              <button type="submit" class="btn">Check In</button>
+                          </form>
+                      {% else %}
+                          <p>Checked In at: {{ watch.check_in_time }}</p>
+                      {% endif %}
+                  {% endif %}
+              {% empty %}
+                  <p>No watches assigned.</p>
+              {% endfor %}
+          </div>
+          
+            <div id="right-info"></div>
+            <div id="right-info"></div>
+            <div id="right-info"></div>
+            <div id="logout-link">
+                <a href="{% url 'users:logout' %}">Log Out</a>
+            </div>
+        </div>
     </div>
     <div id="content-spacing"></div>
 </div>
