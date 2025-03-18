@@ -9,11 +9,13 @@ def index(request):
         return redirect(reverse("users:login")) 
     try:
         servicemember = ServiceMember.objects.filter(user=request.user).first()
+        command = servicemember.command_id
     except:
         servicemember = None
         
     return render(request, "users/dashboard.html", {
-        'servicemember': servicemember
+        'servicemember': servicemember,
+        'command': command
     })
 
 

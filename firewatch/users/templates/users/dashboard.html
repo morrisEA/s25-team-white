@@ -9,30 +9,41 @@ Dashboard
 <div id="center-content">
     <div id="content-spacing"></div>
     <div id="info-container">
-      <div id="left-info">          
-      <ul>
-        <li><strong>Username:</strong> {{ request.user.username }}</li>
-        <li>Email: {{ request.user.email }}</li>
-        <li>Full Name: {{ request.user.get_full_name }}</li>
-        <li>First Name: {{ request.user.first_name }}</li>
-        <li>Last Name: {{ request.user.last_name }}</li>
-        <li>Account Created: {{ request.user.date_joined|date:"M d, Y H:i" }}</li>
-        <li>Last Login: {{ request.user.last_login|date:"M d, Y H:i" }}</li>
-        {% if servicemember %}
-                    <li><strong>First Name:</strong> {{ servicemember.first }}</li>
-                    <li><strong>Last Name:</strong> {{ servicemember.last }}</li>
-                    <li><strong>Rank:</strong> {{ servicemember.rank }}</li>
-                    <li><strong>Rate:</strong> {{ servicemember.rate }}</li>
-                    <li><strong>End of Service Date:</strong> {{ servicemember.end_of_service_date }}</li>
-                {% else %}
-                    <li><strong>Service Member Info:</strong> Not available</li>
-                {% endif %}
-      </ul></div>
-       <div id="right-container">
+      <div id="left-info"> 
+        <div id="header"><h3>Your Information</h3></div>
+        <div id="data">         
+          <ul>
+            <li><strong>Name:</strong> {{ request.user.get_full_name }}</li>
+            <li><strong>Email:</strong> {{ request.user.email }}</li>
+            {% if servicemember %}
+                        <li><strong>Service Branch:</strong> {{ command.service_branch }}</li>
+                        <li><strong>Rank:</strong> {{ servicemember.rank }}</li>
+                        <li><strong>Rate:</strong> {{ servicemember.rate }}</li>      
+                        <li><strong>End of Service Date:</strong> {{ servicemember.end_of_service_date }}</li>  
+                        <li><strong>Command:</strong> {{ command.name }}</li>
+                        <li><strong>Commanding Officer:</strong> {{ command.commanding_officer }}</li>
+                        <li><strong>Location:</strong> {{ command.location_id }}</li>
+                    {% else %}
+                        <li><strong>Service Member Info:</strong> Not available</li>
+                    {% endif %}
+          </ul>
+        </div>
+      </div>
+      <div id="right-container">
         <div id="right-title"><h2>Account Overview</h2></div>
-        <div id="right-info"> </div>
-        <div id="right-info"></div>
-        <div id="right-info"></div>
+        <div id="right-info">
+          <div id="header"><h3>Your Information</h3></div>
+          <div id="data"></div>
+        </div>
+        <div id="right-info">
+          <div id="header"><h3>Account Activity</h3></div>
+          <div id="data">         
+            <ul>
+              <li><strong>Account Created:</strong> {{ request.user.date_joined|date:"M d, Y H:i" }}</li>
+              <li><strong>Last Login:</strong> {{ request.user.last_login|date:"M d, Y H:i" }}</li>
+            </ul>
+          </div>
+        </div>
         <div id="logout-link"><a href="{% url 'users:logout' %}">Log Out</a></div>
       </div>
 
