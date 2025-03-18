@@ -1,14 +1,16 @@
-* {
-   font-family: "Roboto", sans-serif;
-   font-optical-sizing: auto;
-   font-weight: 100;
-   font-style: normal;
-   font-variation-settings: "wdth" 100;
-}
-
 body {
    background-color: whitesmoke;
-   margin: 0;  
+   margin: 0; 
+   font-family: "Roboto", sans-serif;
+   font-optical-sizing: auto;
+   font-style: normal;
+   font-variation-settings: "wdth" 100;
+   font-weight: 100;
+ 
+}
+
+strong {
+   font-weight: normal;
 }
 
 #page-container {
@@ -113,62 +115,154 @@ body {
    padding-bottom: 5rem; 
 }
 
-   /* navigation ends here */
+/* login formatting */
 
-   #login-container {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      flex-direction: column;
-      background: #212121;
-      color: whitesmoke;
-      border: 1px solid #272727;
-      border-radius: 4px;
-      padding: 30px 30px 30px 46px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-      width: 200px; 
-   }
+#login-container {
+   display: flex;
+   justify-content: center;
+   align-items: flex-start;
+   flex-direction: column;
+   background: #212121;
+   color: whitesmoke;
+   border: 1px solid #272727;
+   border-radius: 4px;
+   padding: 30px 30px 30px 46px;
+   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+   width: 200px; 
+}
 
-   #login-form h2 {
-      font-size: 24px;
-      padding: 12px 25px 25px 25px;
-      text-align: center;
-      color: whitesmoke;
-   }
+#login-form h2 {
+   font-size: 24px;
+   padding: 12px 25px 25px 25px;
+   text-align: center;
+   color: whitesmoke;
+}
 
-   #login-form div {
-      margin-bottom: 15px;
-   }
+#login-form div {
+   margin-bottom: 15px;
+}
 
-   #login-form label {
-      display: block;
-      margin-bottom: 5px;
-      color: #CCCCCC;
-   }
+#login-form label {
+   display: block;
+   margin-bottom: 5px;
+   color: #CCCCCC;
+}
 
-   #login-form input[type="text"],
-   #login-form input[type="password"] {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #444;
-      border-radius: 4px;
-      background-color: #1E1E1E;
-      color: #E0E0E0;
-   }
+#login-form input[type="text"],
+#login-form input[type="password"] {
+   width: 100%;
+   padding: 10px;
+   border: 1px solid #444;
+   border-radius: 4px;
+   background-color: #1E1E1E;
+   color: #E0E0E0;
+}
 
-   #login-form input[type="submit"] {
-      background-color: #2C3E50;
-      color: #FFF;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      width: 100%;
-      font-size: 1rem;
-      transition: background-color 0.3s;
-      margin-left: 10px;
-   }
+#login-form input[type="submit"] {
+   background-color: #2C3E50;
+   color: #FFF;
+   padding: 10px;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   width: 100%;
+   font-size: 1rem;
+   transition: background-color 0.3s;
+   margin-left: 10px;
+}
 
-   #login-form input[type="submit"]:hover {
-      background-color: #34495E;
-   }
+#login-form input[type="submit"]:hover {
+   background-color: #34495E;
+}
+
+/* dashboard formatting */
+
+#center-content {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+}
+
+#content-spacing {
+   height: 100%;
+   padding: 0 2.5rem;
+}
+
+#info-container {
+   background-color: #212121;
+   color: whitesmoke;
+   display: flex;
+   flex-direction: row;
+   width: 100%;
+   min-height: 26rem;
+   border-radius: 12px;
+   padding: 1rem;
+   box-shadow: 2px 4px 5px black;
+   gap: 1rem;
+
+}
+
+#left-info {
+   display: flex;
+   background-color: lightgray;
+   color: black;
+   width: 40%;
+   min-height: 8rem;
+   border-radius: 12px;
+   padding: 1rem;
+}
+
+#left-info ul {
+   list-style: none;
+   padding: 0rem;
+
+}
+
+#right-container {
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   width: 60%;
+   gap: 1rem;
+}
+
+#right-info {
+   background-color: lightgray;
+   color: black;
+   height: 4rem;
+   border-radius: 12px;
+   padding: 0.5rem;
+}
+
+#right-title {
+   display: flex;
+   justify-content: center;
+   align-content: center;
+   font-weight: 100;
+}
+
+#logout-link {
+   background-color: #2C3E50;
+   padding: 0.5rem;
+   border: none;
+   border-radius: 8px;
+   cursor: pointer;
+   font-size: 1rem;
+   text-align: center;
+   transition: background-color 0.3s;
+   margin-left: 8rem;
+   margin-right: 8rem;
+}
+
+#logout-link:hover {
+   background-color: #34495E;
+}
+
+#logout-link a {
+   text-decoration: none;
+   color: whitesmoke;
+}
+
+
+

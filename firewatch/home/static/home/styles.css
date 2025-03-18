@@ -103,8 +103,6 @@ body {
    margin: 0;
 }
 
-/* navigation bar and business info ends here */
-
 #content {
    color: black;
    display: flex;
@@ -114,6 +112,8 @@ body {
    margin-top: 7rem;
    padding-bottom: 5rem; 
 }
+
+/* landing page formatting */
 
 #center-content {
    display: flex;
@@ -131,4 +131,5 @@ body {
    color: whitesmoke;
    border-radius: 12px;
    padding: 1rem;
+   box-shadow: 2px 4px 5px black;
 }
