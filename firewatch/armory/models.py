@@ -1,5 +1,7 @@
 from django.db import models
 from django.db.models.fields import CharField
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 class Location(models.Model):
@@ -23,6 +25,7 @@ class Command(models.Model):
 
 
 class ServiceMember(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="servicemember", null=True, blank=True)
     first = models.CharField(max_length=32)
     last = models.CharField(max_length=32)
     rate = models.CharField(max_length=8)

@@ -1,11 +1,20 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import authenticate, login, logout
+from armory.models import ServiceMember
+
 
 # Create your views here.
 def index(request):
     if not request.user.is_authenticated:
         return redirect(reverse("users:login")) 
-    return render(request, "users/dashboard.html")
+    try:
+        servicemember = ServiceMember.objects.filter(user=request.user).first()
+    except:
+        servicemember = None
+        
+    return render(request, "users/dashboard.html", {
+        'servicemember': servicemember
+    })
 
 
 def login_view(request):

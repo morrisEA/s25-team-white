@@ -90,3 +90,5 @@ MANIFEST
 **.txt
 
 .DS_Store
+venv/
+!requirements.txt
