@@ -9,17 +9,19 @@ Login
 <div id="login-container">
   <form id="login-form" action="{% url 'users:login' %}" method="POST">
     {% csrf_token %}
-    {% if message %}
-        <div style="color:red;">{{ message }}</div>
-    {% endif %}
-    <div>
+    <div id="center-login">
       <label for="id_username">Username:</label>
       <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" placeholder="Username" required></div>
-    <div>
+    <div id="center-login">
       <label for="id_password">Password:</label>
       <input type="password" name="password" autocomplete="current-password" placeholder="Password" required></div>
     <input type="submit" value="Login">
   </form>
+  {% if messages %}
+    {% for message in messages %}
+        <div id="logout-error">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
 </div>
 </div>
 {% endblock %}

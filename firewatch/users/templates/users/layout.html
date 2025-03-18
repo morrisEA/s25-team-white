@@ -27,7 +27,11 @@
           <li><a href="{% url 'home:index' %}" class="{% if request.path == '/' %}active{% endif %}">Home</a></li>
           <li><a href="{% url 'eventlog:eventlog' %}" class="{% if request.path == '/eventlog/' %}active{% endif %}">Event Log</a></li>
           <li><a href="{% url 'admin:index' %}"  class="{% if request.path == '/admin/' %}active{% endif %}">Admin</a></li>
+          {% if request.user.is_authenticated %}
+          <li><a href="{% url 'users:index' %}" class="{% if request.path == '/login/' %}active{% endif %}">{{request.user.username}}</a></li>
+          {% else %}
           <li><a href="{% url 'users:login' %}" class="{% if request.path == '/login/' %}active{% endif %}">Login</a></li>
+          {% endif %}
         </ul>
     </nav>
   </div>

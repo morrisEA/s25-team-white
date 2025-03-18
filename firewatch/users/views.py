@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 from armory.models import ServiceMember
 
 
@@ -37,9 +38,8 @@ def login_view(request):
 def logout_view(request):
     user = request.user.username
     logout(request)
-    return render(request, "users/login.html", {
-        "message": f"{user} has logged out."
-    })
+    messages.success(request, f"{user} has logged out.")
+    return redirect('users:login')
 
 
 
