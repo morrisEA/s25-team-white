@@ -54,6 +54,25 @@ strong {
    width: auto;
 }
 
+<<<<<<< HEAD
+=======
+#title {
+   display: flex;
+   height: 100%;
+   background-color: black;
+   color: whitesmoke;
+   margin: 0; 
+   font-family: "Roboto", sans-serif;
+   font-optical-sizing: auto;
+   font-style: normal;
+   font-variation-settings: "wdth" 100;
+   font-weight: 100;
+   flex-wrap: wrap;
+   align-content: center;
+   font-size: 1.5rem;
+}
+
+>>>>>>> origin/main
 #nav-links {
    background-color: #212121;
    top: 3rem;
@@ -119,16 +138,48 @@ strong {
 
 #login-container {
    display: flex;
+<<<<<<< HEAD
    justify-content: center;
    align-items: flex-start;
+=======
+   justify-content: flex-start;
+   align-items: center;
+>>>>>>> origin/main
    flex-direction: column;
    background: #212121;
    color: whitesmoke;
    border: 1px solid #272727;
+<<<<<<< HEAD
    border-radius: 4px;
    padding: 30px 30px 30px 46px;
    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
    width: 200px; 
+=======
+   border-radius: 8px;
+   padding: 2.75rem 3.25rem 2.75rem 3.5rem;
+   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+   width: 16rem;
+   height: 14rem; 
+
+}
+
+#center-login {
+   display: flex;
+   align-content: center;
+   justify-content: flex-start;
+   flex-direction: column;
+}
+
+#login-form {
+   min-width: 4rem;
+   min-height: 4rem;
+   display: flex;
+   align-content: center;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   padding-left: 1rem   ;
+>>>>>>> origin/main
 }
 
 #login-form h2 {
@@ -150,8 +201,13 @@ strong {
 
 #login-form input[type="text"],
 #login-form input[type="password"] {
+<<<<<<< HEAD
    width: 100%;
    padding: 10px;
+=======
+   width: 80%;
+   padding: 8px;
+>>>>>>> origin/main
    border: 1px solid #444;
    border-radius: 4px;
    background-color: #1E1E1E;
@@ -165,16 +221,36 @@ strong {
    border: none;
    border-radius: 5px;
    cursor: pointer;
+<<<<<<< HEAD
    width: 100%;
    font-size: 1rem;
    transition: background-color 0.3s;
    margin-left: 10px;
+=======
+   width: 80%;
+   font-size: 1rem;
+   transition: background-color 0.3s;
+   margin-right: 1rem;
+>>>>>>> origin/main
 }
 
 #login-form input[type="submit"]:hover {
    background-color: #34495E;
 }
 
+<<<<<<< HEAD
+=======
+#logout-error {
+   color: red;
+   display: flex;
+   align-content: end;
+   justify-content: center;
+   min-width: 4rem;
+   min-height: 4rem;
+   flex-wrap: wrap;
+}
+
+>>>>>>> origin/main
 /* dashboard formatting */
 
 #center-content {
@@ -200,17 +276,33 @@ strong {
    padding: 1rem;
    box-shadow: 2px 4px 5px black;
    gap: 1rem;
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/main
 }
 
 #left-info {
    display: flex;
+<<<<<<< HEAD
    background-color: lightgray;
    color: black;
    width: 40%;
    min-height: 8rem;
    border-radius: 12px;
    padding: 1rem;
+=======
+   align-content: center;
+   justify-content: flex-start;
+   flex-direction: column;
+   background-color: lightgray;
+   color: black;
+   width: 50%;
+   min-height: 8rem;
+   border-radius: 12px;
+   padding: 0rem;
+   margin-top: 0rem;
+>>>>>>> origin/main
 }
 
 #left-info ul {
@@ -219,6 +311,40 @@ strong {
 
 }
 
+<<<<<<< HEAD
+=======
+#left-info li {
+   display: flex;
+   justify-content: space-between;
+   list-style: none;
+   padding: 0rem;
+   margin-bottom: 1rem;
+
+}
+
+#header {
+   display: flex;
+   align-content: center;
+   justify-content: center;
+   width: 100%;
+   height: 15%;
+   min-height: 4rem;
+   background-color: rgb(90, 89, 89);
+   color: whitesmoke;
+   border-radius: 12px 12px 0px 0px;
+}
+
+#header h3 {
+   margin: 1rem;
+   font-size: 1.25rem;
+}
+
+#data {
+   padding: 2rem;
+
+}
+
+>>>>>>> origin/main
 #right-container {
    display: flex;
    flex-direction: column;
@@ -230,9 +356,14 @@ strong {
 #right-info {
    background-color: lightgray;
    color: black;
+<<<<<<< HEAD
    height: 4rem;
    border-radius: 12px;
    padding: 0.5rem;
+=======
+   min-height: 8rem;
+   border-radius: 12px;
+>>>>>>> origin/main
 }
 
 #right-title {
@@ -242,6 +373,24 @@ strong {
    font-weight: 100;
 }
 
+<<<<<<< HEAD
+=======
+#right-info ul {
+   list-style: none;
+   padding: 0rem;
+
+}
+
+#right-info li {
+   display: flex;
+   justify-content: space-between;
+   list-style: none;
+   padding: 0rem;
+   margin-bottom: 1rem;
+
+}
+
+>>>>>>> origin/main
 #logout-link {
    background-color: #2C3E50;
    padding: 0.5rem;
@@ -260,8 +409,16 @@ strong {
 }
 
 #logout-link a {
+<<<<<<< HEAD
    text-decoration: none;
    color: whitesmoke;
+=======
+   display: block;
+   text-decoration: none;
+   color: whitesmoke;
+   width: 100%;
+   height: 100%;
+>>>>>>> origin/main
 }
 
 

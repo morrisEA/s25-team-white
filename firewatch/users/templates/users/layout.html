@@ -20,7 +20,7 @@
         <img src="{% static 'home/img/firewatch-logo.png' %}" alt="project logo">
       </div>
       <div id="logo-spacing"></div>
-      <div></div>
+      <div id="title">Fire Watch</div>
     </div>
     <nav id="nav-links"> 
         <ul>
@@ -29,15 +29,13 @@
           <li><a href="{% url 'admin:index' %}"  class="{% if request.path == '/admin/' %}active{% endif %}">Admin</a></li>
           <li><a href="{% url 'users:login' %}" class="{% if request.path == '/login/' %}active{% endif %}">Login</a></li>
 
+    
           {% if request.user.is_authenticated %}
-          <li>
-
           <li><a href="{% url 'watch_status' %}" class="nav-btn">Start Watch</a></li>
-          <li><a href="{% url 'users:logout' %}" class="nav-btn">Logout</a></li>
+          <li><a href="{% url 'users:index' %}" class="{% if request.path == '/login/' %}active{% endif %}">{{request.user.username}}</a></li>
           {% else %}
-          <li><a href="{% url 'users:login' %}" class="nav-btn">Login</a></li>
+          <li><a href="{% url 'users:login' %}" class="{% if request.path == '/login/' %}active{% endif %}">Login</a></li>
           {% endif %}
-          
         </ul>
     </nav>
   </div>

@@ -3,6 +3,9 @@ from django.contrib.auth import authenticate, login, logout
 from armory.models import ServiceMember
 from armory.models import Watch 
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
+
 
 # Create your views here.
 def index(request):
@@ -10,11 +13,13 @@ def index(request):
         return redirect(reverse("users:login")) 
     try:
         servicemember = ServiceMember.objects.filter(user=request.user).first()
+        command = servicemember.command_id
     except:
         servicemember = None
         
     return render(request, "users/dashboard.html", {
-        'servicemember': servicemember
+        'servicemember': servicemember,
+        'command': command
     })
 
 
@@ -36,9 +41,8 @@ def login_view(request):
 def logout_view(request):
     user = request.user.username
     logout(request)
-    return render(request, "users/login.html", {
-        "message": f"{user} has logged out."
-    })
+    messages.success(request, f"{user} has logged out.")
+    return redirect('users:login')
 
 
 
