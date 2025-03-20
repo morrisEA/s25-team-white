@@ -92,7 +92,7 @@ class Ammunition(models.Model):
 
 class Watch(models.Model):
     watch_type = models.CharField(max_length=32)
-    is_qualified = models.BooleanField()
+    is_qualified = models.BooleanField(default=False)
     check_out_time = models.DateTimeField(null=True, blank=True)
     check_in_time = models.DateTimeField(null=True, blank=True)
     ammunition_count = models.IntegerField()
@@ -102,6 +102,11 @@ class Watch(models.Model):
     member_id = models.ForeignKey(ServiceMember, on_delete=models.CASCADE)
     qualification_id = models.ManyToManyField(Qualification)
 
+    class Meta:
+        permissions = [
+            ("can_grant_watch_access", "Can grant watch access"),
+        ]
+        
     def check_out(self):
         """Logs when a watch checks out."""
         self.check_out_time = now()

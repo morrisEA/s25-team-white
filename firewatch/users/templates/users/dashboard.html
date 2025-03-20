@@ -33,32 +33,7 @@ Dashboard
             <div id="right-title">
                 <h2>Account Overview</h2>
             </div>
-            <div id="command-watch-buttons">
-          
-          
-              {% for watch in watches %}
-                  {% if not watch.check_out_time %}
-                      
-                      <form action="{% url 'watch_check_out' watch.id %}" method="POST">
-                          {% csrf_token %}
-                          <button type="submit" class="btn">Check Out</button>
-                      </form>
-                  {% else %}
-                      <p>Checked Out at: {{ watch.check_out_time }}</p>
-                      {% if not watch.check_in_time %}
-                         
-                          <form action="{% url 'watch_check_in' watch.id %}" method="POST">
-                              {% csrf_token %}
-                              <button type="submit" class="btn">Check In</button>
-                          </form>
-                      {% else %}
-                          <p>Checked In at: {{ watch.check_in_time }}</p>
-                      {% endif %}
-                  {% endif %}
-              {% empty %}
-                  <p>No watches assigned.</p>
-              {% endfor %}
-          </div>
+            
           
             <div id="right-info"></div>
             <div id="right-info"></div>

@@ -1,0 +1,28 @@
+{% extends "users/layout.html" %}
+
+{% block title %}Watch Status{% endblock %}
+
+{% block body %}
+<h1>Watch Status</h1>
+
+<div id="watch-status-container">
+    {% if active_watch %}
+        <p>Checked Out at: {{ active_watch.check_out_time }}</p>
+        {% if not active_watch.check_in_time %}
+            <form action="{% url 'watch_check_in' active_watch.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn">Check In</button>
+            </form>
+        {% else %}
+            <p>Checked In at: {{ active_watch.check_in_time }}</p>
+        {% endif %}
+    {% else %}
+        <p>No active watch assigned.</p>
+        <form action="{% url 'watch_check_out' 0 %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn">Start Watch</button>
+        </form>
+    {% endif %}
+</div>
+
+{% endblock %}
