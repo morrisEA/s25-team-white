@@ -136,13 +136,53 @@ body {
 
 #content-spacing {
    height: 100%;
-   padding: 0 2.5rem;
+   padding: 0 4rem;
 }
 
 #info-container {
    background-color: #212121;
-   color: whitesmoke;
    border-radius: 12px;
    padding: 1rem;
    box-shadow: 2px 4px 5px black;
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 1px;
+  background-color: whitesmoke;
+}
+
+.grid-container > div {
+  background: #e0e0e0;
+  padding: 20px 40px 20px 40px;
+  border: 1px solid whitesmoke;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;    
+  text-align: center;   
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  min-height: 10rem;
+  min-width: 8rem;
+}
+
+.grid-container > div:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+}
+
+.grid-container h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+
+.grid-container p {
+  margin: 0;
+  font-size: 14px;
+  color: #444;
+}
+
+
+
