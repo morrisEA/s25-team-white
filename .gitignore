@@ -9,6 +9,8 @@
 **.jar
 !**gradle-wrapper.jar
 **.pyc
+**/*.pyc
+__pycache__/
 **/docs
 **leak.out*
 **.bak
@@ -88,6 +90,7 @@ MANIFEST
 **.xlsx
 **.json
 **.txt
+
 
 .DS_Store
 venv/
