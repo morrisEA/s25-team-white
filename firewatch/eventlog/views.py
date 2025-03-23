@@ -8,6 +8,7 @@ def eventlog_view(request):
         'watches': watches
     })  
 
+
 # View for the RFID scan simulation form
 import random
 from .forms import RFIDScanForm
@@ -19,8 +20,8 @@ def simulate_rfid_scan(request):
     View to simulate RFID scan via a Django form.
     Generates a random serial number and submits it using a Django form.
     """
-    gernerated_serial = f"FW-{random.randint(10000, 99999)}"
-
+    generated_serial = f"FW-{random.randint(10000, 99999)}"
+    
     if request.method == "POST":
         form = RFIDScanForm(request.POST)
         if form.is_valid():
