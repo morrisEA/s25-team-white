@@ -34,12 +34,13 @@ class ServiceMember(models.Model):
     command_id = models.ForeignKey(Command, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.first}, {self.last}, {self.rate}, {self.rank}, eaos:{self.end_of_service_date}"
+        return f"{self.last}, {self.first}"
 
 class Qualification(models.Model):
     qual_type = models.CharField(max_length=64)
     completion_date = models.DateField()
     expiration_date = models.DateField()
+    servicemember_id = models.ForeignKey(ServiceMember, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.qual_type}, cmp:{self.completion_date}, exp:{self.expiration_date}"
@@ -93,8 +94,8 @@ class Ammunition(models.Model):
 class Watch(models.Model):
     watch_type = models.CharField(max_length=32)
     is_qualified = models.BooleanField()
-    check_out = models.DateField()
-    check_in = models.DateField()
+    check_out = models.DateTimeField()
+    check_in = models.DateTimeField()
     ammunition_count = models.IntegerField()
     ammunition_id = models.ManyToManyField(Ammunition)
     firearm_id = models.ManyToManyField(Firearm)

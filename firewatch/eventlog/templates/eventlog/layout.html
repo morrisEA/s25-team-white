@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fire Watch | {% block title %}{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;1,100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'eventlog/styles.css' %}">
+</head>
+
+<body id="page-container">
+  <div id="nav-bar">
+    <div id="title-bar">
+      <div id="logo-spacing"></div>
+      <div id ="logo">
+        <img src="{% static 'home/img/firewatch-logo.png' %}" alt="project logo">
+      </div>
+      <div id="logo-spacing"></div>
+      <div id="title">Fire Watch</div>
+    </div>
+    <nav id="nav-links"> 
+      <ul>
+        <li><a href="{% url 'home:index' %}" class="{% if request.path == '/' %}active{% endif %}">Home</a></li>
+        <li><a href="{% url 'eventlog:eventlog' %}" class="{% if request.path == '/eventlog/' %}active{% endif %}">Event Log</a></li>
+        <li><a href="{% url 'admin:index' %}"  class="{% if request.path == '/admin/' %}active{% endif %}">Admin</a></li>
+        {% if request.user.is_authenticated %}
+        <li><a href="{% url 'users:index' %}" class="{% if request.path == '/login/' %}active{% endif %}">{{request.user.username}}</a></li>
+        {% else %}
+        <li><a href="{% url 'users:login' %}" class="{% if request.path == '/login/' %}active{% endif %}">Login</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+  <div id="content"> 
+    {% block body %}
+    {% endblock %}
+</div>
+
+<div id="business-info">
+  <p>&copy; 2025 Fire Watch | All Rights Reserved</p>
+</div>
+</body>
+</html>
