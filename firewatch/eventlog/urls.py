@@ -3,8 +3,6 @@ from .views import eventlog_view, simulate_rfid_scan
 
 from . import views
 
-from .views import RFIDScanListCreateView
-
 
 app_name = 'eventlog'
 
