@@ -54,7 +54,7 @@
             <a
               href="{% url 'eventlog:eventlog' %}"
               class="{% if request.path == '/eventlog/' %}active{% endif %}"
-              >Event Log</a
+              >Logs</a
             >
           </li>
           {% if request.user.is_superuser %}

@@ -16,7 +16,6 @@
             <tr>
               <th>Watch Type</th>
               <th>Member</th>
-              <th>Qualification</th>
               <th>Check In</th>
               <th>Check Out</th>
               <th>Firearm</th>
@@ -29,11 +28,6 @@
             <tr>
               <td>{{ watch.watch_type }}</td>
               <td>{{ watch.member_id }}</td>
-              <td>
-                {% for qualification in watch.qualification_id.all %} 
-                {{ qualification.name }}<br />
-                {% endfor %}
-              </td>
               <td>{{ watch.check_in }}</td>
               <td>{{ watch.check_out }}</td>
               <td>
