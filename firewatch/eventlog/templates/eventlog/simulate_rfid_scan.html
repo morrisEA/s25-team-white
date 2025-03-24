@@ -1,0 +1,33 @@
+{#
+  simulate_rfid_scan.html
+  This template renders the Django form used to simulate an RFID scan.
+
+  It does the following:
+  - Displays a form with a randomly generated serial number
+  - Submits the form using Django
+  - Once submitted, it stores the serial number in the database via the Django backend
+  - This is part of the RFID Reader stub simulation for Fire Watch
+#}
+
+
+
+{% extends "home/layout.html" %}
+
+{% block title %}Simulate RFID Scan{% endblock %}
+
+{% block body %}
+  <h1>Simulate RFID Scan</h1>
+
+  <div id="center-content">
+    <div id="content-spacing"></div>
+    <div id="info-container">
+      {# Django form for submitting the simulated RFID scan #}
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit Scan</button>
+      </form>
+    </div>
+    <div id="content-spacing"></div>
+  </div>
+{% endblock %}

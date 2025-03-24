@@ -1,4 +1,5 @@
 from django.urls import path
+from .views import eventlog_view, simulate_rfid_scan
 
 from . import views
 
@@ -11,7 +12,6 @@ urlpatterns = [
     # Existing event log view
     path("", views.eventlog_view, name="eventlog"),
 
-    # New API endpoint for storing and retrieving RFID scan data
-    path("api/rfid-scans/", RFIDScanListCreateView.as_view(), name="rfid-scan-list-create"),
-    
+    # Route that triggers the simulated RFID scan view and show the modal form
+    path("simulate-rfid-scan/", views.simulate_rfid_scan, name="simulate-rfid-scan"),
 ]
