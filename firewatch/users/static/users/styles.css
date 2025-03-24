@@ -35,18 +35,18 @@ body {
 #title-bar {
    background-color: white;
    display: flex;
-   place-content: flex-start;
-   align-content: center;
+   justify-content: flex-start; 
+   align-items: center; 
    flex-direction: row;
    height: 4rem;
-
+   padding: 0 2rem; 
 }
 
 #title-bar h1 {
    font-weight: 900;
    font-size: 2rem;
-   margin: 15px;
-   width: 20%;
+   margin: 0;
+   width: auto; 
 }
 
 #logo-card {
@@ -183,7 +183,6 @@ body {
    align-items: center;  
    justify-content: center;  
    margin-left: auto;
-   padding-right: 2rem;
    gap: .5rem;
 }
 
@@ -298,7 +297,7 @@ body {
 
 #content-spacing {
    height: 100%;
-   padding: 0 4rem;
+   padding: 0 1rem;
 }
 
 #info-container {
