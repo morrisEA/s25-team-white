@@ -14,6 +14,7 @@ body {
    justify-content: center;
    max-width: 80vw;
    margin-left: 20vw;
+   background: #e0e0e0;
 }
 
 #side-bar {
@@ -190,9 +191,10 @@ body {
    display: flex;
    align-items: center;
    flex-direction: column;
-   justify-content: space-around;
+   justify-content: flex-start;
    padding-bottom: 5rem; 
    height: 100vh;
+   gap: 2rem;
 }
 
 #slogout-link {
@@ -286,13 +288,13 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr); 
   gap: 1px;
-  background-color: whitesmoke;
+  background-color: black;
 }
 
 .grid-container > div {
   background: #e0e0e0;
   padding: 20px 40px 20px 40px;
-  border: 1px solid whitesmoke;
+  border: 1px solid black;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -317,7 +319,7 @@ body {
 .grid-container p {
   margin: 0;
   font-size: 14px;
-  color: #444;
+  color: black
 }
 
 
