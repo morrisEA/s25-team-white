@@ -1,4 +1,9 @@
 {% extends "users/layout.html" %}
+{% load static %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'armory/styles.css' %}">
+{% endblock %}
 
 {% block title %}Select Firearm{% endblock %}
 {% block pagetype %}Select Firearm{% endblock %}
