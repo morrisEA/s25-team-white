@@ -1,3 +1,4 @@
+<!-- Updated eventlog.html with modal logic -->
 {% extends "eventlog/layout.html" %} 
 
 {% block title %}Logs{% endblock %} 
@@ -6,6 +7,24 @@
 
 {% block body %}
 <h1>Watch Logs</h1>
+
+<!-- RFID Scan Input and Trigger Button -->
+<div id="rfid-form">
+  <label for="serial-input">Serial Number:</label>
+  <input type="text" id="serial-input" name="serial_number" readonly />
+  <button id="openModalBtn">Simulate RFID Scan</button>
+</div>
+
+<!-- Modal -->
+<div id="rfidModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>RFID Scan Initialization</h2>
+    <p>Serial Number: <span id="modal-serial"></span></p>
+  </div>
+</div>
+
+<!-- Watch Log Table -->
 <div id="center-content">
   <div id="content-spacing"></div>
   <div id="info-container">
@@ -54,4 +73,69 @@
   </div>
   <div id="content-spacing"></div>
 </div>
+
+<!-- Modal Styling + JS -->
+<style>
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;
+  border-radius: 12px;
+  text-align: center;
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover {
+  color: black;
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const modal = document.getElementById("rfidModal");
+  const btn = document.getElementById("openModalBtn");
+  const span = document.getElementsByClassName("close")[0];
+  const modalSerial = document.getElementById("modal-serial");
+  const serialInput = document.getElementById("serial-input");
+
+  btn.onclick = function () {
+    const serial = `FW-${Math.floor(10000 + Math.random() * 90000)}`;
+    modalSerial.textContent = serial;
+    modal.style.display = "block";
+    setTimeout(() => {
+      modal.style.display = "none";
+      serialInput.value = serial;
+    }, 3000); // 3 seconds then auto close and update input
+  };
+
+  span.onclick = function () {
+    modal.style.display = "none";
+    serialInput.value = modalSerial.textContent;
+  };
+
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+      serialInput.value = modalSerial.textContent;
+    }
+  };
+})
+</script>
 {% endblock %}
