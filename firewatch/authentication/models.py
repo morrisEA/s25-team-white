@@ -6,7 +6,7 @@ class MilitaryPersonnel(AbstractUser):
     rank = models.CharField(max_length=50)
     unit = models.CharField(max_length=100)
 
-    # Fix conflicts with Django's auth.User model
+
     groups = models.ManyToManyField(
         "auth.Group",
         related_name="military_personnel_set",  # Custom related_name to prevent conflict

@@ -2,6 +2,6 @@ ndeflib
 Django
 djangorestframework
 psycopg2-binary 
-pymongo 
-python-dotenv
+pymongo
 werkzeug
+

@@ -22,5 +22,5 @@ urlpatterns = [
     path("", include('home.urls')),
     path("users/", include('users.urls')),
     path("eventlog/", include('eventlog.urls')),
-    path("armory/", include('armory.urls'))
+    path("armory/", include('armory.urls', namespace='armory')),
 ]

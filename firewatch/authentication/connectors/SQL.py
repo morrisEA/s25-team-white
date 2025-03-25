@@ -1,7 +1,7 @@
 from django.db import transaction
 from authentication.models import MilitaryPersonnel, Firearm, FirearmTransaction
 from django.contrib.auth import authenticate
-from .base_connector import BaseDatabaseConnector
+from authentication.connectors.base_connector import BaseDatabaseConnector
 
 class SQLORMDatabaseConnector(BaseDatabaseConnector):
     """Django ORM Database Connector"""

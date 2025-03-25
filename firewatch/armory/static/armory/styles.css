@@ -1,0 +1,41 @@
+#firearm-box {
+    background-color: #212121;
+    color: whitesmoke;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.4);
+    width: 100%;
+    max-width: 600px;
+    margin: 3rem auto;
+  }
+  
+  #firearm-box h2, #firearm-box h3, #firearm-box label, #firearm-box p {
+    color: whitesmoke;
+  }
+  
+  #firearm-box input[type="number"],
+  #firearm-box input[type="radio"] + label {
+    background-color: #1a1a1a;
+    color: whitesmoke;
+    border: 1px solid #444;
+    padding: 6px;
+    border-radius: 6px;
+    width: 100%;
+    margin-bottom: 0.75rem;
+  }
+  
+  #firearm-box button {
+    background-color: #2C3E50;
+    color: #FFF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+  }
+  
+  #firearm-box button:hover {
+    background-color: #34495E;
+  }
+  

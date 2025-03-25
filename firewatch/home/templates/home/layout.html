@@ -51,6 +51,11 @@
             class="{% if request.path == '/login/' %}active{% endif %}">Overview</a>
            </li>
           <li>
+            <li>
+              <a href="{% url 'users:manage_watch' %}"
+                 class="{% if request.path == '/users/manage_watch/' %}active{% endif %}">Manage Watch</a
+              >
+          </li>
             <a
               href="{% url 'eventlog:eventlog' %}"
               class="{% if request.path == '/eventlog/' %}active{% endif %}"
