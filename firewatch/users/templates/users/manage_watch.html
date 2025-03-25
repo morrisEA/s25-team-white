@@ -17,16 +17,30 @@
 
 <form method="post">
   {% csrf_token %}
+  
   {% if user_in_watch %}
-    <label for="ammo_returned">Ammunition Returned:</label>
-    <input type="number" name="ammo_returned" min="0" required>
+    <p><strong>You are currently on watch. Please check in your assigned gear below:</strong></p>
 
-    <label for="mags_returned">Magazines Returned:</label>
-    <input type="number" name="mags_returned" min="0" required>
+    <label for="returned_m9">M9 Magazines Returned:</label>
+    <input type="number" name="returned_m9" min="0" value="0">
 
-    <button type="submit" name="stop_watch">Check Out of Watch</button>
+    <label for="returned_m4a1">M4A1 Magazines Returned:</label>
+    <input type="number" name="returned_m4a1" min="0" value="0">
+
+    <label for="returned_9mm">9mm Rounds Returned:</label>
+    <input type="number" name="returned_9mm" min="0" value="0">
+
+    <label for="returned_556">5.56 Rounds Returned:</label>
+    <input type="number" name="returned_556" min="0" value="0">
+
+    <label for="returned_762">7.62 Rounds Returned:</label>
+    <input type="number" name="returned_762" min="0" value="0">
+
+    <button type="submit" name="stop_watch">Check In</button>
+  
   {% else %}
-    <button type="submit" name="start_watch">Start Command Watch</button>
+    <p><strong>You are not currently on watch. Click below to begin a new shift.</strong></p>
+    <button type="submit" name="start_watch">Start Watch</button>
   {% endif %}
 </form>
 {% endblock %}

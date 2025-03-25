@@ -9,16 +9,15 @@ def firearm_selection(request, member_id):
         firearm_id = request.POST.get('firearm_id')
         firearm = get_object_or_404(Firearm, pk=firearm_id)
 
-        # Mark firearm as unavailable
         firearm.available = False
         firearm.save()
 
-        # Add to current watch
+        
         if watch:
-            watch.firearm_id.add(firearm)  # it's a ManyToManyField
+            watch.firearm_id.add(firearm)  
             watch.save()
 
-        return redirect('users:index')  # Redirect to dashboard or confirmation page
+        return redirect('users:index')  
 
     else:
         available_firearms = Firearm.objects.filter(available=True)

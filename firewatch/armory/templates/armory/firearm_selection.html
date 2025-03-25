@@ -8,6 +8,8 @@
 
 <form method="post">
   {% csrf_token %}
+  
+  <h3>Select a Firearm:</h3>
   {% for firearm in firearms %}
     <div>
       <input type="radio" name="firearm_id" value="{{ firearm.id }}" required>
@@ -16,7 +18,25 @@
   {% empty %}
     <p>No available firearms.</p>
   {% endfor %}
+
+  <br><h3>Ammunition to Check Out:</h3>
+  <label for="ammo_9mm">9mm Rounds:</label>
+  <input type="number" name="ammo_9mm" min="0" value="0"><br>
+
+  <label for="ammo_556">5.56 Rounds:</label>
+  <input type="number" name="ammo_556" min="0" value="0"><br>
+
+  <label for="ammo_762">7.62 Rounds:</label>
+  <input type="number" name="ammo_762" min="0" value="0"><br>
+
+  <br><h3>Magazines to Check Out:</h3>
+  <label for="mag_m9">M9 Magazines:</label>
+  <input type="number" name="mag_m9" min="0" value="0"><br>
+
+  <label for="mag_m4a1">M4A1 Magazines:</label>
+  <input type="number" name="mag_m4a1" min="0" value="0"><br>
+
   <br>
-  <button type="submit">Confirm Firearm</button>
+  <button type="submit">Confirm Selection</button>
 </form>
 {% endblock %}
