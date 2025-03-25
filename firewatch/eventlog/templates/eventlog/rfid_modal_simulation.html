@@ -1,0 +1,91 @@
+{% extends "eventlog/layout.html" %}
+
+{% block title %}Simulate RFID Modal{% endblock %}
+{% block pagetype %}Simulate RFID Modal{% endblock %}
+
+{% block body %}
+<h1>RFID Scan Simulation</h1>
+
+<!-- Serial Number Input and Button -->
+<div id="rfid-form" style="margin: 2rem 0;">
+  <label for="serial-input">Serial Number:</label>
+  <input type="text" id="serial-input" name="serial_number" readonly />
+  <button id="openModalBtn">Simulate RFID Scan</button>
+</div>
+
+<!-- Modal -->
+<div id="rfidModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>RFID Scan Initialization</h2>
+    <p>Serial Number: <span id="modal-serial"></span></p>
+  </div>
+</div>
+
+<!-- Modal Styling -->
+<style>
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;
+  border-radius: 12px;
+  text-align: center;
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover {
+  color: black;
+}
+</style>
+
+<!-- JavaScript for Modal Behavior -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const modal = document.getElementById("rfidModal");
+  const btn = document.getElementById("openModalBtn");
+  const span = document.getElementsByClassName("close")[0];
+  const modalSerial = document.getElementById("modal-serial");
+  const serialInput = document.getElementById("serial-input");
+
+  btn.onclick = function () {
+    const serial = `FW-${Math.floor(10000 + Math.random() * 90000)}`;
+    modalSerial.textContent = serial;
+    modal.style.display = "block";
+    setTimeout(() => {
+      modal.style.display = "none";
+      serialInput.value = serial;
+    }, 3000); // auto close after 3 seconds
+  };
+
+  span.onclick = function () {
+    modal.style.display = "none";
+    serialInput.value = modalSerial.textContent;
+  };
+
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+      serialInput.value = modalSerial.textContent;
+    }
+  };
+});
+</script>
+{% endblock %}

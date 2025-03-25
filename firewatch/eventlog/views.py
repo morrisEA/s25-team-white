@@ -36,3 +36,7 @@ def simulate_rfid_scan(request):
     return render(request, "eventlog/simulate_rfid_scan.html", {
         "form": form
         })
+
+# Standalone page to simulate RFID modal without affecting logs page
+def rfid_modal_simulation_view(request):
+    return render(request, "eventlog/rfid_modal_simulation.html")
