@@ -4,39 +4,41 @@
 {% block pagetype %}Select Firearm{% endblock %}
 
 {% block body %}
-<h2>Firearm Selection for {{ member.first }} {{ member.last }}</h2>
+<div id="firearm-box">
+  <h2>Firearm Selection for {{ member.first }} {{ member.last }}</h2>
 
-<form method="post">
-  {% csrf_token %}
-  
-  <h3>Select a Firearm:</h3>
-  {% for firearm in firearms %}
-    <div>
-      <input type="radio" name="firearm_id" value="{{ firearm.id }}" required>
-      <label>{{ firearm.firearm_type }} (Serial #: {{ firearm.serial_number }})</label>
-    </div>
-  {% empty %}
-    <p>No available firearms.</p>
-  {% endfor %}
+  <form method="post">
+    {% csrf_token %}
 
-  <br><h3>Ammunition to Check Out:</h3>
-  <label for="ammo_9mm">9mm Rounds:</label>
-  <input type="number" name="ammo_9mm" min="0" value="0"><br>
+    <h3>Select a Firearm:</h3>
+    {% for firearm in firearms %}
+      <div>
+        <input type="radio" name="firearm_id" value="{{ firearm.id }}" required>
+        <label>{{ firearm.firearm_type }} (Serial #: {{ firearm.serial_number }})</label>
+      </div>
+    {% empty %}
+      <p>No available firearms.</p>
+    {% endfor %}
 
-  <label for="ammo_556">5.56 Rounds:</label>
-  <input type="number" name="ammo_556" min="0" value="0"><br>
+    <br><h3>Ammunition to Check Out:</h3>
 
-  <label for="ammo_762">7.62 Rounds:</label>
-  <input type="number" name="ammo_762" min="0" value="0"><br>
+    <label for="ammo_9mm">9mm Rounds:</label>
+    <input type="number" name="ammo_9mm" min="0" value="0"><br>
 
-  <br><h3>Magazines to Check Out:</h3>
-  <label for="mag_m9">M9 Magazines:</label>
-  <input type="number" name="mag_m9" min="0" value="0"><br>
+    <label for="ammo_556">5.56 Rounds:</label>
+    <input type="number" name="ammo_556" min="0" value="0"><br>
 
-  <label for="mag_m4a1">M4A1 Magazines:</label>
-  <input type="number" name="mag_m4a1" min="0" value="0"><br>
+    <label for="ammo_762">7.62 Rounds:</label>
+    <input type="number" name="ammo_762" min="0" value="0"><br>
 
-  <br>
-  <button type="submit">Confirm Selection</button>
-</form>
+    <label for="ammo_m9">M9 Rounds:</label>
+    <input type="number" name="ammo_m9" min="0" value="0"><br>
+
+    <label for="ammo_m4a1">M4A1 Rounds:</label>
+    <input type="number" name="ammo_m4a1" min="0" value="0"><br>
+
+    <br>
+    <button type="submit">Confirm Selection</button>
+  </form>
+</div>
 {% endblock %}
