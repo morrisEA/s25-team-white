@@ -1,0 +1,32 @@
+{% extends "users/layout.html" %}
+
+{% block title %}Manage Watch{% endblock %}
+{% block pagetype %}Manage Watch{% endblock %}
+
+{% block body %}
+<h2>Manage Watch</h2>
+
+
+{% if messages %}
+  <ul>
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<form method="post">
+  {% csrf_token %}
+  {% if user_in_watch %}
+    <label for="ammo_returned">Ammunition Returned:</label>
+    <input type="number" name="ammo_returned" min="0" required>
+
+    <label for="mags_returned">Magazines Returned:</label>
+    <input type="number" name="mags_returned" min="0" required>
+
+    <button type="submit" name="stop_watch">Check Out of Watch</button>
+  {% else %}
+    <button type="submit" name="start_watch">Start Command Watch</button>
+  {% endif %}
+</form>
+{% endblock %}

@@ -68,7 +68,7 @@ class Magazine(models.Model):
     total_556 = models.IntegerField()
     total_762 = models.IntegerField()
     armory_id = models.ForeignKey(Armory, on_delete=models.CASCADE)
-
+    quantity = models.IntegerField(default=0)  
     def __str__(self):
         return f"m9:{self.total_m9}, m4a1:{self.total_m4a1}, 9mm:{self.total_9mm}, 5.56:{self.total_556}, 7.62:{self.total_762}, id:{self.armory_id}"
 
@@ -77,7 +77,7 @@ class Firearm(models.Model):
     serial_number = models.CharField(max_length=64)
     maintenance_date = models.DateField()
     magazine_id = models.ForeignKey(Magazine, on_delete=models.CASCADE)
-
+    available = models.BooleanField(default=True)
     def __str__(self):
         return f"{self.firearm_type}, sn:{self.serial_number}, {self.maintenance_date}"
 
@@ -87,7 +87,7 @@ class Ammunition(models.Model):
     lot_number = models.CharField(max_length=64)
     firearm_id = models.ForeignKey(Firearm, on_delete=models.CASCADE)
     magazine_id = models.ForeignKey(Magazine, on_delete=models.CASCADE)
-
+    quantity = models.IntegerField(default=0)  
     def __str__(self):
         return f"{self.ammunition_type}, ln:{self.lot_number}"
 
@@ -95,11 +95,11 @@ class Watch(models.Model):
     watch_type = models.CharField(max_length=32)
     is_qualified = models.BooleanField()
     check_out = models.DateTimeField()
-    check_in = models.DateTimeField()
+    check_in = models.DateTimeField(null=True, blank=True)
     ammunition_count = models.IntegerField()
     ammunition_id = models.ManyToManyField(Ammunition)
     firearm_id = models.ManyToManyField(Firearm)
-    armory_id = models.ForeignKey(Armorer, on_delete=models.CASCADE)
+    armory_id = models.ForeignKey(Armorer, on_delete=models.CASCADE, null=True, blank=True)
     member_id = models.ForeignKey(ServiceMember, on_delete=models.CASCADE)
     qualification_id = models.ManyToManyField(Qualification)
 

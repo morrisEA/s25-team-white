@@ -1,0 +1,22 @@
+{% extends "users/layout.html" %}
+
+{% block title %}Select Firearm{% endblock %}
+{% block pagetype %}Select Firearm{% endblock %}
+
+{% block body %}
+<h2>Firearm Selection for {{ member.first }} {{ member.last }}</h2>
+
+<form method="post">
+  {% csrf_token %}
+  {% for firearm in firearms %}
+    <div>
+      <input type="radio" name="firearm_id" value="{{ firearm.id }}" required>
+      <label>{{ firearm.firearm_type }} (Serial #: {{ firearm.serial_number }})</label>
+    </div>
+  {% empty %}
+    <p>No available firearms.</p>
+  {% endfor %}
+  <br>
+  <button type="submit">Confirm Firearm</button>
+</form>
+{% endblock %}
