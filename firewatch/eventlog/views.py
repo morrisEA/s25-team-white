@@ -16,13 +16,17 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 # Django form-based view to simulate RFID scan
-def simulate_rfid_scan(request):
+def rfid_scan_entry(request):
     """
     View to simulate RFID scan via a Django form.
     Generates a random serial number and submits it using a Django form.
     """
+    from .rfid_reader import RFIDReader
 
-    generated_serial = f"FW-{random.randint(10000, 99999)}"
+    reader = RFIDReader()
+    generated_serial = reader.generate_serial_number()
+    encoded_bytes = reader.encode_ndef(generated_serial)
+    decoded_serial = reader.decode_ndef(encoded_bytes)
 
     if request.method == "POST":
         form = RFIDScanForm(request.POST)
@@ -30,10 +34,10 @@ def simulate_rfid_scan(request):
             form.save()
             return HttpResponseRedirect(reverse("eventlog:eventlog"))
     else:
-        # Pre-fill the form with the generated serial number
-        form = RFIDScanForm(initial={'serial_number': generated_serial})
+        # This ensures generating a compliant serial, encoding/decoding as real NDEF
+        form = RFIDScanForm(initial={'serial_number': decoded_serial})
 
-    return render(request, "eventlog/simulate_rfid_scan.html", {
+    return render(request, "eventlog/rfid_scan_entry.html", {
         "form": form
         })
 

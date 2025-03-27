@@ -19,10 +19,11 @@ class RFIDScanForm(forms.ModelForm):
     class Meta:
         model = RFIDScan
         fields = ['serial_number']
-        # Make the field read-only to simulate RFID input (not editable by user)
+        # Make the field read-only to simulate RFID input
         widgets = {
-            'serial_number': forms.TextInput(attrs={'readonly': 'readonly'}),
+            'serial_number': forms.TextInput(attrs={'placeholder': 'Scan or enter serial'}),
         }
+
 
     def __init__(self, *args, **kwargs):
         super(RFIDScanForm, self).__init__(*args, **kwargs)
