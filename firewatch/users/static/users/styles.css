@@ -229,7 +229,7 @@ body {
    justify-content: center;
    align-items: center;
    flex-direction: column;
-   padding-left: 1rem   ;
+   padding-left: .5rem   ;
 }
 
 #login-form h2 {
