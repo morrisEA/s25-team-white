@@ -4,20 +4,8 @@
 {% block pagetype %}Manage Watch{% endblock %}
 
 {% block body %}
-
 <h2 style="color: black; text-align: center; margin-top: 2rem; font-size: 1.75rem;">Manage Watch</h2>
-
-
-<div id="content" style="
-    margin: 2rem auto 0 auto; 
-    background-color: #212121; 
-    padding: 2rem; 
-    border-radius: 12px; 
-    width: 100%; 
-    max-width: 600px; 
-    color: whitesmoke;
-">
-
+<div id="content" style="margin: 2rem auto 0 auto; background-color: #212121; padding: 2rem; border-radius: 12px; width: 100%; max-width: 600px; color: whitesmoke;">
   {% if messages %}
     <ul>
       {% for message in messages %}
@@ -25,45 +13,24 @@
       {% endfor %}
     </ul>
   {% endif %}
-
   <form method="post" style="display: flex; flex-direction: column; gap: 1rem;">
     {% csrf_token %}
-
     {% if user_in_watch %}
       <p><strong>You are currently on watch. Please check in your assigned ammunition:</strong></p>
-
       <label for="returned_m9">M9 Rounds Returned:</label>
       <input type="number" name="returned_m9" min="0" value="0" style="padding: 6px;">
-
-      <label for="returned_m4">M4 Rounds Returned:</label>
-      <input type="number" name="returned_m4" min="0" value="0" style="padding: 6px;">
-
+      <label for="returned_m4a1">M4A1 Rounds Returned:</label>
+      <input type="number" name="returned_m4a1" min="0" value="0" style="padding: 6px;">
       <label for="returned_9mm">9mm Rounds Returned:</label>
       <input type="number" name="returned_9mm" min="0" value="0" style="padding: 6px;">
-
       <label for="returned_556">5.56 Rounds Returned:</label>
       <input type="number" name="returned_556" min="0" value="0" style="padding: 6px;">
-
       <label for="returned_762">7.62 Rounds Returned:</label>
       <input type="number" name="returned_762" min="0" value="0" style="padding: 6px;">
-
-      <input type="submit" name="stop_watch" value="Check In" style="
-          background-color: #2C3E50;
-          color: whitesmoke; 
-          padding: 10px; 
-          border: none; 
-          border-radius: 8px;
-      ">
-
+      <input type="submit" name="stop_watch" value="Check In" style="background-color: #2C3E50; color: whitesmoke; padding: 10px; border: none; border-radius: 8px;">
     {% else %}
       <p><strong>You are not currently on watch. Click below to begin a new shift.</strong></p>
-      <input type="submit" name="start_watch" value="Start Watch" style="
-          background-color: #2C3E50; 
-          color: whitesmoke; 
-          padding: 10px; 
-          border: none; 
-          border-radius: 8px;
-      ">
+      <input type="submit" name="start_watch" value="Start Watch" style="background-color: #2C3E50; color: whitesmoke; padding: 10px; border: none; border-radius: 8px;">
     {% endif %}
   </form>
 </div>

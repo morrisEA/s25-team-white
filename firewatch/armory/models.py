@@ -69,11 +69,7 @@ class Magazine(models.Model):
     total_762 = models.IntegerField()
     armory_id = models.ForeignKey(Armory, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=0)  
-    returned_9mm = models.IntegerField(default=0)
-    returned_556 = models.IntegerField(default=0)
-    returned_762 = models.IntegerField(default=0)
-    returned_M9 = models.IntegerField(default=0)
-    returned_M4A1 = models.IntegerField(default=0)
+
 
     def __str__(self):
         return f"m9:{self.total_m9}, m4a1:{self.total_m4a1}, 9mm:{self.total_9mm}, 5.56:{self.total_556}, 7.62:{self.total_762}, id:{self.armory_id}"
@@ -111,3 +107,12 @@ class Watch(models.Model):
 
     def __str__(self):
         return f"Watch: {self.watch_type}, Member: {self.member_id.first} {self.member_id.last}, Check-Out: {self.check_out}, Check-In: {self.check_in}, Qualified: {self.is_qualified}"
+
+
+class IssuedAmmunition(models.Model):
+    watch= models.ForeignKey(Watch, on_delete=models.CASCADE)
+    ammunition = models.ForeignKey(Ammunition, on_delete=models.CASCADE)
+    quantity_issued = models.IntegerField()
+
+    def __str__(self):
+        return f"Watch ID: {self.watch.id}, Ammunition ID: {self.ammunition.id}, Quantity Issued: {self.quantity_issued}"

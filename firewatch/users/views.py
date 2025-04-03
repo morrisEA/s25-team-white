@@ -3,7 +3,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 from django.contrib.auth.decorators import login_required 
-from armory.models import ServiceMember, Watch, Firearm, Magazine
+from armory.models import * 
+
 
 
 from django.utils import timezone
@@ -68,37 +69,65 @@ def manage_watch(request):
                 ammunition_count=0,
                 armory_id=None
             )
-            messages.success(request, "Watch started. Proceed to firearm selection.")
+            
             return redirect('armory:firearm_selection', member_id=servicemember.id)
 
         elif 'stop_watch' in request.POST and user_in_watch:
+        
+            
             returned_9mm = int(request.POST.get('returned_9mm', 0))
             returned_556 = int(request.POST.get('returned_556', 0))
             returned_762 = int(request.POST.get('returned_762', 0))
             returned_m9 = int(request.POST.get('returned_m9', 0))
             returned_m4a1 = int(request.POST.get('returned_m4a1', 0))
 
-            total_ammo = returned_9mm + returned_556 + returned_762
+            issued_ammo = IssuedAmmunition.objects.filter(watch_id=active_watch.id)
+            issued_map = {i.ammunition.ammunition_type.lower(): i.quantity_issued for i in issued_ammo}
+
+            
+            over_return = []
+            if returned_9mm > issued_map.get("9mm", 0):
+                over_return.append("9mm")
+            if returned_556 > issued_map.get("5.56", 0):
+                over_return.append("5.56")
+            if returned_762 > issued_map.get("7.62", 0):
+                over_return.append("7.62")
+            if returned_m9 > issued_map.get("m9", 0):
+                over_return.append("M9")
+            if returned_m4a1 > issued_map.get("m4a1", 0):
+                over_return.append("M4A1")
+            
+            if over_return:
+                messages.error(request, f"You cannot return more than issued for: {', '.join(over_return)}.")
+                return redirect('users:manage_watch')
+            
+            total_ammo = returned_9mm + returned_556 + returned_762 + returned_m9 + returned_m4a1
             active_watch.ammunition_count = total_ammo
             active_watch.check_in = timezone.now()
             active_watch.save()
 
-            magazine = Magazine.objects.filter(armory_id__command_id=servicemember.command_id).first()
-            if magazine:
-                magazine.total_9mm += returned_9mm
-                magazine.total_556 += returned_556
-                magazine.total_762 += returned_762
-                magazine.total_m9 += returned_m9
-                magazine.total_m4a1 += returned_m4a1
-                magazine.save()
+    
+            for ammo in active_watch.ammunition_id.all():
+                ammo_type = ammo.ammunition_type.lower()
+                if ammo_type == "9mm":
+                    ammo.quantity += returned_9mm
+                elif ammo_type == "5.56":
+                    ammo.quantity += returned_556
+                elif ammo_type == "7.62":
+                    ammo.quantity += returned_762
+                elif ammo_type == "m9":
+                    ammo.quantity += returned_m9
+                elif ammo_type == "m4a1":
+                    ammo.quantity += returned_m4a1
+                ammo.save()
 
+    
             for firearm in active_watch.firearm_id.all():
                 firearm.available = True
                 firearm.save()
 
-            messages.success(request, f"Returned {total_ammo} rounds and magazines successfully.")
+            messages.success(request, f"Returned {total_ammo} rounds successfully.")
             return redirect('users:manage_watch')
-
     return render(request, 'users/manage_watch.html', {
         'user_in_watch': user_in_watch
     })
