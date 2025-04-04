@@ -97,7 +97,7 @@ class Watch(models.Model):
     watch_type = models.CharField(max_length=32)
     is_qualified = models.BooleanField()
     check_out = models.DateTimeField()
-    check_in = models.DateTimeField(null=True, blank=True)
+    check_in = models.DateTimeField()
     ammunition_count = models.IntegerField()
     ammunition_id = models.ManyToManyField(Ammunition)
     firearm_id = models.ManyToManyField(Firearm)
@@ -109,10 +109,3 @@ class Watch(models.Model):
         return f"Watch: {self.watch_type}, Member: {self.member_id.first} {self.member_id.last}, Check-Out: {self.check_out}, Check-In: {self.check_in}, Qualified: {self.is_qualified}"
 
 
-class IssuedAmmunition(models.Model):
-    watch= models.ForeignKey(Watch, on_delete=models.CASCADE)
-    ammunition = models.ForeignKey(Ammunition, on_delete=models.CASCADE)
-    quantity_issued = models.IntegerField()
-
-    def __str__(self):
-        return f"Watch ID: {self.watch.id}, Ammunition ID: {self.ammunition.id}, Quantity Issued: {self.quantity_issued}"
