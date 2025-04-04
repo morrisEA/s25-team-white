@@ -1,9 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.conf import settings
 from .models import *
+from django.urls import reverse
 
-@login_required
+
 def firearm_selection(request, member_id):
+    
+    if not request.user.is_authenticated:
+       return redirect(f"{reverse('users:login')}?next={request.path}")
+    
     member = get_object_or_404(ServiceMember, pk=member_id)
     watch = Watch.objects.filter(member_id=member, check_in__isnull=True).first()
 
@@ -16,7 +21,7 @@ def firearm_selection(request, member_id):
         if watch:
             watch.firearm_id.add(firearm)
 
-        # Gather ammo amounts
+        
             ammo_inputs = {
                 '9mm': int(request.POST.get('ammo_9mm', 0)),
                 '5.56': int(request.POST.get('ammo_556', 0)),
