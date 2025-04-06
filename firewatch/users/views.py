@@ -4,7 +4,7 @@ from django.contrib import messages
 from armory.models import * 
 from django.utils import timezone
 from django.conf import settings
-
+from django.db.models import F
 def index(request):
     if not request.user.is_authenticated:
         return redirect(reverse("users:login")) 
@@ -50,8 +50,9 @@ def manage_watch(request):
     
     user = request.user
     servicemember = ServiceMember.objects.get(user=user)
-    active_watch = Watch.objects.filter(member_id=servicemember, check_in__isnull=True).first()
-    user_in_watch = bool(active_watch)
+    active_watch = Watch.objects.filter(member_id=servicemember).order_by('-check_out').first()
+
+    user_in_watch = active_watch and (active_watch.check_in == active_watch.check_out)
 
     if request.method == 'POST':
         if 'start_watch' in request.POST and not user_in_watch:
@@ -60,11 +61,13 @@ def manage_watch(request):
                 messages.error(request, "Error: No firearms available at this time.")
                 return redirect('users:manage_watch')
 
+
+            now = timezone.now()
             Watch.objects.create(
                 watch_type="Standard",
                 is_qualified=True,
-                check_out=timezone.now(),
-                check_in=None,
+                check_out=now,
+                check_in=now,
                 member_id=servicemember,
                 ammunition_count=0,
                 armory_id=None
@@ -86,17 +89,20 @@ def manage_watch(request):
                 for ammo_type, field in ammo_fields.items()
             }
 
-            issued_ammo = IssuedAmmunition.objects.filter(watch_id=active_watch.id)
-            issued_map = {
-                i.ammunition.ammunition_type.lower(): i.quantity_issued
-                for i in issued_ammo
-            }
             
-            over_return = [atype for atype, qty in returned.items() if qty > issued_map.get(atype, 0)]
-            if over_return:
-                messages.error(request, f"You cannot return more than issued for: {', '.join(over_return)}.")
+            issued_ammo = request.session.get('issued_ammo', {})
+            
+            over_returned = [
+                ammo_type for ammo_type, qty in returned.items() 
+                if qty > int(issued_ammo.get(ammo_type, 0))
+                ]
+          
+            if over_returned:
+                messages.error(
+                    request,
+                    f"Return failed. Try again."
+                )
                 return redirect('users:manage_watch')
-            
             
             
             
@@ -117,6 +123,9 @@ def manage_watch(request):
                 firearm.available = True
                 firearm.save()
 
+
+            if 'issued_ammo' in request.session:
+                del request.session['issued_ammo']
             messages.success(request, f"Returned {total_ammo} rounds successfully.")
             return redirect('users:manage_watch')
         
