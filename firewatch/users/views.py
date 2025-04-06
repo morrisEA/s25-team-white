@@ -50,17 +50,21 @@ def manage_watch(request):
     
     user = request.user
     servicemember = ServiceMember.objects.get(user=user)
+    user_in_watch = False
     active_watch = Watch.objects.filter(member_id=servicemember).order_by('-check_out').first()
-
-    user_in_watch = active_watch and (active_watch.check_in == active_watch.check_out)
-
+    if active_watch and active_watch.check_in == active_watch.check_out:
+        if active_watch.firearm_id.count() == 0:
+        
+            return redirect('armory:firearm_selection', member_id=servicemember.id)
+        user_in_watch = True
+    
     if request.method == 'POST':
         if 'start_watch' in request.POST and not user_in_watch:
             available_firearms = Firearm.objects.filter(available=True)
             if not available_firearms.exists():
                 messages.error(request, "Error: No firearms available at this time.")
                 return redirect('users:manage_watch')
-
+           
 
             now = timezone.now()
             Watch.objects.create(
