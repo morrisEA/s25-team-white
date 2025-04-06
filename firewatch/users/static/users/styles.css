@@ -320,12 +320,13 @@ body {
    flex-direction: column;
    background-color: lightgray;
    color: black;
-   width: 50%;
+   width: 100%;
+   height: 100%;
    min-height: 8rem;
    border-radius: 12px;
-   padding: 0rem;
-   margin-top: 0rem;
+   flex-grow: 1;
 }
+
 
 #left-info ul {
    list-style: none;
@@ -369,7 +370,7 @@ body {
    flex-direction: column;
    justify-content: flex-start;
    width: 60%;
-   gap: 1rem;
+   gap: 1.5rem;
 }
 
 #right-info {
@@ -401,31 +402,6 @@ body {
 
 }
 
-#logout-link {
-   background-color: #2C3E50;
-   padding: 0.5rem;
-   border: none;
-   border-radius: 8px;
-   cursor: pointer;
-   font-size: 1rem;
-   text-align: center;
-   transition: background-color 0.3s;
-   margin-left: 8rem;
-   margin-right: 8rem;
-}
-
-#logout-link:hover {
-   background-color: #34495E;
-}
-
-#logout-link a {
-   display: block;
-   text-decoration: none;
-   color: whitesmoke;
-   width: 100%;
-   height: 100%;
-}
-
 #slogout-link {
    background-color: #2C3E50;
    padding: 0.5rem;
@@ -450,3 +426,53 @@ body {
    height: 100%;
 }
 
+#left-card {
+   display: flex;
+   align-content: center;
+   justify-content: flex-start;
+   flex-direction: column;
+   width: 60%;
+   gap: 1.5rem;
+}
+
+#role-card {
+   display: flex;
+   align-content: center;
+   justify-content: space-around;
+   flex-direction: row;
+   min-height: 12%;
+   gap: 1rem;
+}
+
+#role {
+   display: flex;
+   align-content: center;
+   justify-content: center;
+   flex-direction: column;
+   width: 50%;
+   background-color: #f1cc9b;
+   border-radius: 8px;
+   padding: .5rem;
+   color: black;
+}
+
+#role-title {
+   display: flex;
+   align-content: center;
+   justify-content: left;
+   flex-direction: row;
+   height: 25%;
+   font-size: .85rem;
+   font-weight: 800;
+}
+
+#role-info {
+   display: flex;
+   align-content: center;
+   justify-content: center;
+   flex-direction: column;
+   text-align: center;
+   height: 75%;
+   font-weight: 300;
+   font-size: 1rem;
+}
