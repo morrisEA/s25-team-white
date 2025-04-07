@@ -124,6 +124,7 @@ STATICFILE_DIRS = [
     BASE_DIR / "home/static",
     BASE_DIR / "users/static",
     BASE_DIR / "eventlog/static",
+    BASE_DIR / "armory/static"
 
 ]
 

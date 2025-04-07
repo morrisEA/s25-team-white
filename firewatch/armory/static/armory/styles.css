@@ -1,0 +1,119 @@
+select,
+::picker(select) {
+  appearance: base-select;
+}
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  width: 100%;
+  padding: 0 10px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+h2 {
+  font-size: 1.2rem;
+}
+
+p {
+  display: flex;
+  gap: 10px;
+}
+
+label {
+  width: fit-content;
+  align-self: center;
+}
+
+select {
+  flex: 1;
+}
+select {
+  border: 2px solid #ddd;
+  background: #eee;
+  padding: 10px;
+  transition: 0.4s;
+  width: 250px;
+  height: 45px; 
+}
+
+select:hover,
+select:focus {
+  background: #ddd;
+}
+select::picker-icon {
+  color: #999;
+  transition: 0.4s rotate;
+}
+select:open::picker-icon {
+  rotate: 180deg;
+}
+::picker(select) {
+  border: none;
+}
+option {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+
+  border: 2px solid #ddd;
+  background: #eee;
+  padding: 10px;
+  transition: 0.4s;
+}
+option:first-of-type {
+  border-radius: 8px 8px 0 0;
+}
+
+option:last-of-type {
+  border-radius: 0 0 8px 8px;
+}
+
+option:not(option:last-of-type) {
+  border-bottom: none;
+}
+option:nth-of-type(odd) {
+  background: #fff;
+}
+
+option:hover,
+option:focus {
+  background: rgb(133, 188, 239);
+}
+option .icon {
+  font-size: 1.6rem;
+  text-box: trim-both cap alphabetic;
+}
+selectedcontent .icon {
+  display: none;
+}
+option:checked {
+  font-weight: bold;
+}
+option::checkmark {
+  order: 1;
+  margin-left: auto;
+  content: "☑️";
+}
+::picker(select) {
+  opacity: 0;
+  transition: all 0.4s allow-discrete;
+}
+::picker(select):popover-open {
+  opacity: 1;
+}
+@starting-style {
+  ::picker(select):popover-open {
+    opacity: 0;
+  }
+}
+::picker(select) {
+  top: calc(anchor(bottom) + 1px);
+  left: anchor(10%);
+}
