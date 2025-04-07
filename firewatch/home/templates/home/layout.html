@@ -42,6 +42,10 @@
             href="{% url 'users:index' %}"
             class="{% if request.path == '/login/' %}active{% endif %}">Overview</a>
            </li>
+           <li> <a
+            href="{% url 'armory:index' %}"
+            class="{% if request.path == '/login/' %}active{% endif %}">Armory</a>
+           </li>
           <li>
             <a
               href="{% url 'eventlog:eventlog' %}"
