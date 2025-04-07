@@ -1,0 +1,57 @@
+{% extends "home/layout.html" %} 
+
+{% block title %} 
+Armory
+{% endblock %} 
+
+{% block pagetype %} 
+Armory 
+{% endblock %} 
+
+{% block body %}
+<form>
+    <p>
+        <label for="longarm-select">Select Longarm:</label>
+        <select id="longarm-select">
+            <button>
+                <selectedcontent></selectedcontent>
+            </button>
+        
+            <option value="">Please select a longarm</option>
+            {% for longarm in longarms %}
+            {% if longarm.available %}
+            <option value="longarm">
+                <span class="option-label">{{ longarm.serial_number }}</span>
+            </option>
+            {% endif %}
+            {% endfor %}
+            <option value="longarm">
+                <span class="option-label">None</span>
+            </option>
+        </select>
+    </p>
+</form>
+
+<form>
+    <p>
+        <label for="handgun-select">Select Handgun:</label>
+        <select id="handgun-select">
+            <button>
+                <selectedcontent></selectedcontent>
+            </button>
+        
+            <option value="">Please select a handgun</option>
+            {% for handgun in handguns %}
+            {% if handgun.available %}
+            <option value="handgun">
+                <span class="option-label">{{ handgun.serial_number }}</span>
+            </option>
+            {% endif %}
+            {% endfor %}
+            <option value="handgun">
+                <span class="option-label">None</span>
+            </option>
+        </select>
+    </p>
+</form>
+{% endblock%}

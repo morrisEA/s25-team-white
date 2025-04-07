@@ -76,6 +76,7 @@ class Firearm(models.Model):
     firearm_type = models.CharField(max_length=64)
     serial_number = models.CharField(max_length=64)
     maintenance_date = models.DateField()
+    available = models.BooleanField(default=True)
     magazine_id = models.ForeignKey(Magazine, on_delete=models.CASCADE)
 
     def __str__(self):
