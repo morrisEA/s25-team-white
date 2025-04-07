@@ -102,3 +102,68 @@ option::checkmark {
   top: calc(anchor(bottom) + 1px);
   left: anchor(10%);
 }
+
+#armory input[type="text"],
+#armory input[type="password"] {
+   width: 80%;
+   padding: 8px;
+   border: 1px solid #444;
+   border-radius: 4px;
+   background-color: #1E1E1E;
+   color: #E0E0E0;
+}
+
+#armory input[type="submit"] {
+   background-color: #2C3E50;
+   color: #FFF;
+   padding: 10px;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   width: 50%;
+   font-size: 1rem;
+   transition: background-color 0.3s;
+   display: flex;
+   justify-self: center;
+}
+
+#armory input[type="submit"]:hover {
+   background-color: #34495E;
+}
+
+#armory-error {
+   color: red;
+   display: flex;
+   align-content: end;
+   justify-content: center;
+   min-width: 4rem;
+   min-height: 4rem;
+   flex-wrap: wrap;
+}
+
+#center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#content-spacing {
+  height: 100%;
+  padding: 0 1rem;
+}
+
+#info-container {
+  background-color: #212121;
+  color: whitesmoke;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-height: 26rem;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 2px 4px 5px black;
+  gap: 1rem;
+  justify-content: center;
+}
+
