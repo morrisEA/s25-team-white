@@ -26,6 +26,7 @@ select {
   transition: 0.4s;
   width: 250px;
   height: 45px; 
+  color:#1E1E1E;
 }
 
 select:hover,
