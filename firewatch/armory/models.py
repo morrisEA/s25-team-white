@@ -91,9 +91,15 @@ class Ammunition(models.Model):
 
     def __str__(self):
         return f"{self.ammunition_type}, ln:{self.lot_number}"
+    
+class WatchType(models.Model):
+    name = models.CharField(max_length=64)
+
+    def __str__(self):
+        return f"{self.name}"
 
 class Watch(models.Model):
-    watch_type = models.CharField(max_length=32)
+    watch_type = models.ForeignKey(WatchType, on_delete=models.CASCADE)
     is_qualified = models.BooleanField()
     check_out = models.DateTimeField()
     check_in = models.DateTimeField()

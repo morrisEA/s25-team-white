@@ -10,16 +10,15 @@ h2 {
 p {
   display: flex;
   gap: 10px;
+  justify-content: flex-end;
 }
 
 label {
   width: fit-content;
   align-self: center;
+  margin-right: auto;
 }
 
-select {
-  flex: 1;
-}
 select {
   border: 2px solid #ddd;
   background: #eee;
