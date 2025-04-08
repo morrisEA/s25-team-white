@@ -1,8 +1,6 @@
 import os
-from django.conf import settings
 
-
-from authentication.connectors.sql_orm_connector import SQLORMDatabaseConnector
+from authentication.connectors.SQL import SQLORMDatabaseConnector
 from authentication.connectors.nosql_connector import NoSQLDatabaseConnector
 
 class DatabaseFactory:
@@ -12,20 +10,28 @@ class DatabaseFactory:
     def get_database_connector():
         database_type = os.getenv("FIREWATCH_DB_TYPE", "SQL").upper()
 
-        if database_type == "SQL":
-            sql_engine = os.getenv("SQL_ENGINE", "django.db.backends.sqlite3")
+        if database_type == "AUTO":
+            # Prefer PostgreSQL if configured
+            sql_engine = os.getenv("SQL_ENGINE", "")
+            db_host = os.getenv("DB_HOST", "")
+            if sql_engine == "django.db.backends.postgresql" and db_host:
+                return SQLORMDatabaseConnector()
 
-            if sql_engine == "django.db.backends.sqlite3":
-                return SQLORMDatabaseConnector()  
-            
-            return SQLORMDatabaseConnector()  
+            # Fallback to MongoDB if available
+            mongo_uri = os.getenv("MONGO_URI", "")
+            if mongo_uri:
+                return NoSQLDatabaseConnector(mongo_uri)
+
+            # Fallback to SQLite
+            return SQLORMDatabaseConnector()
+
+        elif database_type == "SQL":
+            sql_engine = os.getenv("SQL_ENGINE", "django.db.backends.sqlite3")
+            return SQLORMDatabaseConnector()
 
         elif database_type == "NOSQL":
-            mongo_uri = os.getenv("MONGO_URI", "mongodb://localhost:27017/firewatch")
-            return NoSQLDatabaseConnector(mongo_uri) 
+            mongo_uri = os.getenv("MONGO_URI", "mongodb://localhost:27017/firewatch")            
+            return NoSQLDatabaseConnector(mongo_uri)
 
         else:
             raise ValueError(f"Unsupported database type: {database_type}")
-
-# Dependency injection
-db_connector = DatabaseFactory.get_database_connector()

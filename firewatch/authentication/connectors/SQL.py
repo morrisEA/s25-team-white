@@ -1,9 +1,10 @@
 from django.db import transaction
 from authentication.models import MilitaryPersonnel, Firearm, FirearmTransaction
 from django.contrib.auth import authenticate
-from authentication.connectors.base_connector import BaseDatabaseConnector
+from authentication.connectors.DatabaseFactory import DatabaseFactory
 
-class SQLORMDatabaseConnector(BaseDatabaseConnector):
+
+class SQLORMDatabaseConnector(DatabaseFactory):
     """Django ORM Database Connector"""
 
     def save_personnel(self, personnel_data):
