@@ -12,9 +12,9 @@ Armory
 <h1>Firearm Issuance</h1>
 <div id="center-content">
     <div id="content-spacing"></div>
-    <div id="info-container">
+    <div id="info-container-armory">
 
-        <form id="armory">
+        <form id="armory" method="POST">
         {% csrf_token %}
             <p>
                 <label for="watch">Select Watch:</label>
@@ -25,7 +25,7 @@ Armory
                 
                     <option value="">Please select a watch</option>
                     {% for watch in watches %}
-                    <option value="{{ watch.name }}<">
+                    <option value="{{ watch.name }}">
                         <span class="option-label">{{ watch.name }}</span>
                     </option>
                     {% endfor %}
@@ -140,7 +140,7 @@ Armory
                     {% endfor %}
                 </select>
             </p>
-            <input type="submit" value="Submit">
+            <button type="submit" name="form_type" value="checkout">Submit</button>
             {% if messages %}
             {% for message in messages %}
                 <div id="armory-error">{{ message }}</div>

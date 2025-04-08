@@ -104,17 +104,7 @@ option::checkmark {
   left: anchor(10%);
 }
 
-#armory input[type="text"],
-#armory input[type="password"] {
-   width: 80%;
-   padding: 8px;
-   border: 1px solid #444;
-   border-radius: 4px;
-   background-color: #1E1E1E;
-   color: #E0E0E0;
-}
-
-#armory input[type="submit"] {
+#armory button[type="submit"] {
    background-color: #2C3E50;
    color: #FFF;
    padding: 10px;
@@ -124,11 +114,11 @@ option::checkmark {
    width: 50%;
    font-size: 1rem;
    transition: background-color 0.3s;
-   display: flex;
-   justify-self: center;
+   display: block;
+   margin: 0 auto;
 }
 
-#armory input[type="submit"]:hover {
+#armory button[type="submit"]:hover {
    background-color: #34495E;
 }
 
@@ -154,7 +144,8 @@ option::checkmark {
   padding: 0 1rem;
 }
 
-#info-container {
+#info-container-armory {
+  background-image: url("./img/gun-metal.png");
   background-color: #212121;
   color: whitesmoke;
   display: flex;
