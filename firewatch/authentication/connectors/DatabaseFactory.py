@@ -32,6 +32,10 @@ class DatabaseFactory:
         elif database_type == "NOSQL":
             mongo_uri = os.getenv("MONGO_URI", "mongodb://localhost:27017/firewatch")            
             return NoSQLDatabaseConnector(mongo_uri)
+        elif database_type == "SQLITE": 
+            os.environ["SQL_ENGINE"] = "django.db.backends.sqlite3"
+            os.environ["DB_NAME"] = os.environ.get("DB_NAME", "db.sqlite3")
+            return SQLORMDatabaseConnector()
 
         else:
             raise ValueError(f"Unsupported database type: {database_type}")
