@@ -1,0 +1,153 @@
+{% extends "home/layout.html" %} 
+
+{% block title %} 
+Armory
+{% endblock %} 
+
+{% block pagetype %} 
+Armory 
+{% endblock %} 
+
+{% block body %}
+<h1>Firearm Issuance</h1>
+<div id="center-content">
+    <div id="content-spacing"></div>
+    <div id="info-container-armory">
+
+        <form id="armory" method="POST">
+        {% csrf_token %}
+            <p>
+                <label for="watch">Select Watch:</label>
+                <select name="watch" id="watch" required>
+                    <button>
+                        <selectedcontent></selectedcontent>
+                    </button>
+                
+                    <option value="">Please select a watch</option>
+                    {% for watch in watches %}
+                    <option value="{{ watch.name }}">
+                        <span class="option-label">{{ watch.name }}</span>
+                    </option>
+                    {% endfor %}
+                </select>
+            </p>
+
+            <p>
+                <label for="servicemember">Select Service Member:</label>
+                <select name="servicemember" id="servicemember" required>
+                    <button>
+                        <selectedcontent></selectedcontent>
+                    </button>
+                
+                    <option value="">Please select a member</option>
+                    {% for servicemember in servicemembers %}
+                    <option value="{{servicemember.id}}">
+                        <span class="option-label">{{ servicemember.last }}, {{servicemember.first}}</span>
+                    </option>
+                    {% endfor %}
+                </select>
+            </p>
+
+            <p>
+                <label for="longarm">Select Longarm:</label>
+                <select name="longarm" id="longarm" required>
+                    <button>
+                        <selectedcontent></selectedcontent>
+                    </button>
+                
+                    <option value="">Please select a longarm</option>
+                    {% for longarm in longarms %}
+                    {% if longarm.available %}
+                    <option value="{{ longarm.serial_number }}">
+                        <span class="option-label">{{ longarm.serial_number }}</span>
+                    </option>
+                    {% endif %}
+                    {% endfor %}
+                    <option value="None">
+                        <span class="option-label">None</span>
+                    </option>
+                </select>
+            </p>
+
+            <p>
+                <label for="handgun">Select Handgun:</label>
+                <select name="handgun" id="handgun" required>
+                    <button>
+                        <selectedcontent></selectedcontent>
+                    </button>
+                
+                    <option value="">Please select a handgun</option>
+                    {% for handgun in handguns %}
+                    {% if handgun.available %}
+                    <option value="{{ handgun.serial_number }}">
+                        <span class="option-label">{{ handgun.serial_number }}</span>
+                    </option>
+                    {% endif %}
+                    {% endfor %}
+                    <option value="None">
+                        <span class="option-label">None</span>
+                    </option>
+                </select>
+            </p>
+
+            <p>
+                <label for="556-ammo">5.56mm Count:</label>
+                <input type="number" required name="556-ammo" id="556-ammo" value="0" min="0" max="120" />
+                <select name="mag-556" id="mag-556" required>
+                    <button>
+                        <selectedcontent></selectedcontent>
+                    </button>
+                
+                    <option value="">Magazine</option>
+                    {% for magazine in magazines %}
+                    <option value="{{ magazine.id }}">
+                        <span class="option-label">{{ magazine.id }}</span>
+                    </option>
+                    {% endfor %}
+                </select>
+            </p>
+
+            <p>
+                <label for="762-ammo">7.62mm Count:</label>
+                <input type="number" required name="762-ammo" id="762-ammo" value="0" min="0" max="120" />
+                <select name="mag-762" id="mag-762" required>
+                    <button>
+                        <selectedcontent></selectedcontent>
+                    </button>
+                
+                    <option value="">Magazine</option>
+                    {% for magazine in magazines %}
+                    <option value="{{ magazine.id }}">
+                        <span class="option-label">{{ magazine.id }}</span>
+                    </option>
+                    {% endfor %}
+                </select>
+            </p>
+
+            <p>
+                <label for="9mm-ammo" re>9mm Count:</label>
+                <input type="number" required name="9mm-ammo" id="9mm-ammo" value="0" min="0" max="120" />
+                <select name="mag-9mm" id="mag-9mm" required>
+                    <button>
+                        <selectedcontent></selectedcontent>
+                    </button>
+                
+                    <option value="">Magazine</option>
+                    {% for magazine in magazines %}
+                    <option value="{{ magazine.id }}">
+                        <span class="option-label">{{ magazine.id }}</span>
+                    </option>
+                    {% endfor %}
+                </select>
+            </p>
+            <button type="submit" name="form_type" value="checkout">Submit</button>
+            {% if messages %}
+            {% for message in messages %}
+                <div id="armory-error">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        </form>
+    </div>
+    <div id="content-spacing"></div>
+</div>
+{% endblock%}

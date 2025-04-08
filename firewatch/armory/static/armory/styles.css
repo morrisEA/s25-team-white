@@ -1,41 +1,161 @@
-#firearm-box {
-    background-color: #212121;
-    color: whitesmoke;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 0 12px rgba(0,0,0,0.4);
-    width: 100%;
-    max-width: 600px;
-    margin: 3rem auto;
+select,
+::picker(select) {
+  appearance: base-select;
+}
+
+h2 {
+  font-size: 1.2rem;
+}
+
+p {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+label {
+  width: fit-content;
+  align-self: center;
+  margin-right: auto;
+}
+
+select {
+  border: 2px solid #ddd;
+  background: #eee;
+  padding: 10px;
+  transition: 0.4s;
+  width: 250px;
+  height: 45px; 
+  color:#1E1E1E;
+}
+
+select:hover,
+select:focus {
+  background: #ddd;
+}
+select::picker-icon {
+  color: #999;
+  transition: 0.4s rotate;
+}
+select:open::picker-icon {
+  rotate: 180deg;
+}
+::picker(select) {
+  border: none;
+}
+option {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+
+  border: 2px solid #ddd;
+  background: #eee;
+  padding: 10px;
+  transition: 0.4s;
+}
+option:first-of-type {
+  border-radius: 8px 8px 0 0;
+}
+
+option:last-of-type {
+  border-radius: 0 0 8px 8px;
+}
+
+option:not(option:last-of-type) {
+  border-bottom: none;
+}
+option:nth-of-type(odd) {
+  background: #fff;
+}
+
+option:hover,
+option:focus {
+  background: rgb(133, 188, 239);
+}
+option .icon {
+  font-size: 1.6rem;
+  text-box: trim-both cap alphabetic;
+}
+selectedcontent .icon {
+  display: none;
+}
+option:checked {
+  font-weight: bold;
+}
+option::checkmark {
+  order: 1;
+  margin-left: auto;
+  content: "☑️";
+}
+::picker(select) {
+  opacity: 0;
+  transition: all 0.4s allow-discrete;
+}
+::picker(select):popover-open {
+  opacity: 1;
+}
+@starting-style {
+  ::picker(select):popover-open {
+    opacity: 0;
   }
-  
-  #firearm-box h2, #firearm-box h3, #firearm-box label, #firearm-box p {
-    color: whitesmoke;
-  }
-  
-  #firearm-box input[type="number"],
-  #firearm-box input[type="radio"] + label {
-    background-color: #1a1a1a;
-    color: whitesmoke;
-    border: 1px solid #444;
-    padding: 6px;
-    border-radius: 6px;
-    width: 100%;
-    margin-bottom: 0.75rem;
-  }
-  
-  #firearm-box button {
-    background-color: #2C3E50;
-    color: #FFF;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    width: 100%;
-  }
-  
-  #firearm-box button:hover {
-    background-color: #34495E;
-  }
-  
+}
+::picker(select) {
+  top: calc(anchor(bottom) + 1px);
+  left: anchor(10%);
+}
+
+#armory button[type="submit"] {
+   background-color: #2C3E50;
+   color: #FFF;
+   padding: 10px;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   width: 50%;
+   font-size: 1rem;
+   transition: background-color 0.3s;
+   display: block;
+   margin: 0 auto;
+}
+
+#armory button[type="submit"]:hover {
+   background-color: #34495E;
+}
+
+#armory-error {
+   color: red;
+   display: flex;
+   align-content: end;
+   justify-content: center;
+   min-width: 4rem;
+   min-height: 4rem;
+   flex-wrap: wrap;
+}
+
+#center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#content-spacing {
+  height: 100%;
+  padding: 0 1rem;
+}
+
+#info-container-armory {
+  background-image: url("./img/gun-metal.png");
+  background-color: #212121;
+  color: whitesmoke;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-height: 26rem;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 2px 4px 5px black;
+  gap: 1rem;
+  justify-content: center;
+}
+

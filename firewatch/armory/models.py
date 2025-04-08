@@ -78,6 +78,7 @@ class Firearm(models.Model):
     firearm_type = models.CharField(max_length=64)
     serial_number = models.CharField(max_length=64)
     maintenance_date = models.DateField()
+    available = models.BooleanField(default=True)
     magazine_id = models.ForeignKey(Magazine, on_delete=models.CASCADE)
     available = models.BooleanField(default=True)
     def __str__(self):
@@ -92,18 +93,22 @@ class Ammunition(models.Model):
     quantity = models.IntegerField(default=0)  
     def __str__(self):
         return f"{self.ammunition_type}, ln:{self.lot_number}"
+    
+class WatchType(models.Model):
+    name = models.CharField(max_length=64)
+
+    def __str__(self):
+        return f"{self.name}"
 
 class Watch(models.Model):
-    watch_type = models.CharField(max_length=32)
+    watch_type = models.ForeignKey(WatchType, on_delete=models.CASCADE)
     is_qualified = models.BooleanField()
     check_out = models.DateTimeField()
-    check_in = models.DateTimeField()
+    check_in = models.DateTimeField(null=True, blank=True)
     ammunition_count = models.IntegerField()
-    ammunition_id = models.ManyToManyField(Ammunition)
     firearm_id = models.ManyToManyField(Firearm)
     armory_id = models.ForeignKey(Armorer, on_delete=models.CASCADE, null=True, blank=True)
     member_id = models.ForeignKey(ServiceMember, on_delete=models.CASCADE)
-    qualification_id = models.ManyToManyField(Qualification)
 
     def __str__(self):
         return f"Watch: {self.watch_type}, Member: {self.member_id.first} {self.member_id.last}, Check-Out: {self.check_out}, Check-In: {self.check_in}, Qualified: {self.is_qualified}"

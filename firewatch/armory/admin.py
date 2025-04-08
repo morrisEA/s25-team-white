@@ -47,10 +47,14 @@ class AmmunitionAdmin(admin.ModelAdmin):
     list_display = ("id", "ammunition_type", "lot_number", "firearm_id", "magazine_id")
     search_fields = ("ammunition_type", "lot_number")
 
+@admin.register(WatchType)
+class WatchTypeAdmin(admin.ModelAdmin):
+    list_display = ("id", "name")
+
 @admin.register(Watch)
 class WatchAdmin(admin.ModelAdmin):
     list_display = ("id", "watch_type", "member_id", "check_out", "check_in", "is_qualified", "ammunition_count")
     search_fields = ("watch_type", "member_id__first", "member_id__last")
     list_filter = ("watch_type", "is_qualified", "check_out", "check_in")
-    filter_horizontal = ("ammunition_id", "firearm_id", "qualification_id")
+    filter_horizontal = ("firearm_id",)
 
