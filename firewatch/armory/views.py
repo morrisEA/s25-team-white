@@ -115,6 +115,9 @@ def checkout(request):
 
     return redirect(reverse('eventlog:eventlog'))
 
+def checkin(request):
+    ...    
+
     
 
 
