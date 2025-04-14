@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from armory.models import Firearm, WatchType, Magazine, ServiceMember, Watch, Armorer
@@ -15,7 +15,9 @@ def index(request):
 
         if issue_type == "checkout":
            return checkout(request)
-
+        
+        if issue_type == "checkin":
+            return checkin(request)
 
     try:
         longarms = Firearm.objects.filter(firearm_type ="M4A1").all()
@@ -48,7 +50,7 @@ def index(request):
         'handguns' : handguns,
         'watches' : watches,
         'magazines' : magazines, 
-        'servicemembers' : servicemembers       
+        'servicemembers' : servicemembers,
     })
 
 def checkout(request):
@@ -58,11 +60,13 @@ def checkout(request):
         "mag-556", "mag-762", "mag-9mm"
     ]
 
+    # to create a watch
     checkout_data = {field: request.POST.get(field) for field in fields}
     date = datetime.datetime.now()
     watch_type = WatchType.objects.get(name=checkout_data["watch"])
     armory_id = Armorer.objects.get(pk=1)
     member_id = ServiceMember.objects.get(pk=checkout_data["servicemember"])
+
 
     if checkout_data["longarm"] is not None:
         update_longarm = Firearm.objects.filter(serial_number=checkout_data["longarm"]).first()
@@ -98,6 +102,7 @@ def checkout(request):
         w.firearm_id.add(update_handgun)
         w.save()
     
+
     if checkout_data["9mm-ammo"] != 0:
         update_mag_9mm = Magazine.objects.filter(id=checkout_data["mag-9mm"]).first()
         update_mag_9mm.total_9mm -= int(checkout_data["9mm-ammo"])
@@ -115,8 +120,30 @@ def checkout(request):
 
     return redirect(reverse('eventlog:eventlog'))
 
-def checkin(request):
-    ...    
+def checkin(request, watch_id):
+    if request.method == "POST":
+        watch = get_object_or_404(Watch, pk=watch_id)
+        if not watch.check_in:
+            ammo_count = request.POST.get("ammunition_count")
+            magazine_id = request.POST.get("magazine_id")
+            firearm = watch.firearm_id.first()
+            magazine = get_object_or_404(Magazine, pk=magazine_id)
+
+            if ammo_count is not None:
+                if firearm.firearm_type == "M9":
+                    magazine.total_9mm += int(ammo_count)
+                elif firearm.firearm_type == "M4A1":
+                    magazine.total_556 += int(ammo_count)
+                else:
+                    magazine.total_762 += int(ammo_count)
+                watch.check_in = datetime.datetime.now()
+                firearm.available = True
+                watch.save()
+                magazine.save()
+                firearm.save()
+    return redirect('eventlog:eventlog')
+
+  
 
     
 
