@@ -1,12 +1,18 @@
 from django.shortcuts import render
 
-from armory.models import Watch
+from armory.models import Watch, Magazine
 
 # HTML view for the event log page
 def eventlog_view(request):
     watches = Watch.objects.all().order_by('-check_in')
+    
+    try:
+        magazines = Magazine.objects.all()
+    except:
+        magazines = None
     return render(request, "eventlog/eventlog.html", {
-        'watches': watches
+        'watches': watches,
+        'magazines' : magazines,
     })  
 
 # View for the RFID scan simulation form

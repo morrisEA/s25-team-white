@@ -92,7 +92,7 @@ Armory
 
             <p>
                 <label for="556-ammo">5.56mm Count:</label>
-                <input type="number" required name="556-ammo" id="556-ammo" value="0" min="0" max="120" />
+                <input type="number" required name="556-ammo" id="556-ammo" placeholder="Select Mag" min="0" style="width: 11ch;"/>
                 <select name="mag-556" id="mag-556" required>
                     <button>
                         <selectedcontent></selectedcontent>
@@ -100,7 +100,7 @@ Armory
                 
                     <option value="">Magazine</option>
                     {% for magazine in magazines %}
-                    <option value="{{ magazine.id }}">
+                    <option value="{{ magazine.id }}" data-max-556="{{ magazine.total_556}}">
                         <span class="option-label">{{ magazine.id }}</span>
                     </option>
                     {% endfor %}
@@ -109,7 +109,7 @@ Armory
 
             <p>
                 <label for="762-ammo">7.62mm Count:</label>
-                <input type="number" required name="762-ammo" id="762-ammo" value="0" min="0" max="120" />
+                <input type="number" required name="762-ammo" id="762-ammo" placeholder="Select Mag" min="0" style="width: 11ch;" />
                 <select name="mag-762" id="mag-762" required>
                     <button>
                         <selectedcontent></selectedcontent>
@@ -117,7 +117,7 @@ Armory
                 
                     <option value="">Magazine</option>
                     {% for magazine in magazines %}
-                    <option value="{{ magazine.id }}">
+                    <option value="{{ magazine.id }}" data-max-762="{{ magazine.total_762}}">
                         <span class="option-label">{{ magazine.id }}</span>
                     </option>
                     {% endfor %}
@@ -126,7 +126,7 @@ Armory
 
             <p>
                 <label for="9mm-ammo" re>9mm Count:</label>
-                <input type="number" required name="9mm-ammo" id="9mm-ammo" value="0" min="0" max="120" />
+                <input type="number" required name="9mm-ammo" id="9mm-ammo" placeholder="Select Mag" min="0" style="width: 11ch;" />
                 <select name="mag-9mm" id="mag-9mm" required>
                     <button>
                         <selectedcontent></selectedcontent>
@@ -134,7 +134,7 @@ Armory
                 
                     <option value="">Magazine</option>
                     {% for magazine in magazines %}
-                    <option value="{{ magazine.id }}">
+                    <option value="{{ magazine.id }}" data-max-9mm="{{ magazine.total_9mm}}">
                         <span class="option-label">{{ magazine.id }}</span>
                     </option>
                     {% endfor %}
@@ -146,8 +146,71 @@ Armory
                 <div id="armory-error">{{ message }}</div>
             {% endfor %}
         {% endif %}
-        </form>
+        </form> 
     </div>
     <div id="content-spacing"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const select = document.getElementById("mag-762");
+            const ammoInput = document.getElementById("762-ammo");
+        
+            select.addEventListener("change", function () {
+                const selectedOption = select.options[select.selectedIndex];
+                const maxAmmo = selectedOption.getAttribute("data-max-762");
+        
+                if (maxAmmo) {
+                    ammoInput.max = maxAmmo;
+                    ammoInput.placeholder = "Max: " + maxAmmo;
+
+                } else {
+                    ammoInput.max = 120; // default
+                    ammoInput.placeholder = "Max: 120";
+
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const select = document.getElementById("mag-9mm");
+            const ammoInput = document.getElementById("9mm-ammo");
+        
+            select.addEventListener("change", function () {
+                const selectedOption = select.options[select.selectedIndex];
+                const maxAmmo = selectedOption.getAttribute("data-max-9mm");
+        
+                if (maxAmmo) {
+                    ammoInput.max = maxAmmo;
+                    ammoInput.placeholder = "Max: " + maxAmmo;
+
+                } else {
+                    ammoInput.max = 120; // default
+                    ammoInput.placeholder = "Max: 120";
+
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const select = document.getElementById("mag-556");
+            const ammoInput = document.getElementById("556-ammo");
+        
+            select.addEventListener("change", function () {
+                const selectedOption = select.options[select.selectedIndex];
+                const maxAmmo = selectedOption.getAttribute("data-max-556");
+        
+                if (maxAmmo) {
+                    ammoInput.max = maxAmmo;
+                    ammoInput.placeholder = "Max: " + maxAmmo;
+
+                } else {
+                    ammoInput.max = 120; // default
+                    ammoInput.placeholder = "Max: 120";
+
+                }
+            });
+        });
+    </script>
 </div>
 {% endblock%}
