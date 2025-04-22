@@ -1,33 +1,212 @@
-{#
-  rfid_scan_entry.html
-  This template renders the Django form to capture a real RFID scan (via backend logic)
+{% extends "eventlog/layout.html" %}
 
-  It does the following:
-  - Displays a form with a randomly generated serial number
-  - Submits the form using Django
-  - Once submitted, it stores the serial number in the database via the Django backend
-  - This is part of the RFID Reader stub for Fire Watch
-#}
-
-
-
-{% extends "home/layout.html" %}
-
-{% block title %}RFID Scan Entry{% endblock %}
+{% block title %}RFID Scan{% endblock %}
+{% block pagetype %}RFID Scan{% endblock %}
 
 {% block body %}
-  <h1>RFID Scan</h1>
+<h2>Add A Firearm</h2>
 
-  <div id="center-content">
-    <div id="content-spacing"></div>
-    <div id="info-container">
-      {# Django form for submitting the RFID scan #}
-      <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit Scan</button>
-      </form>
+<!-- RFID Form -->
+<form method="POST" id="rfid-form">
+  {% csrf_token %}
+
+  <div class="input-group">
+    <label for="serial-input">Serial Number:</label>
+    <div class="serial-input-container">
+      <input type="text" id="serial-input" name="serial_number" class="input-field" />
+      <button id="openModalBtn" class="button">Scan Now</button>
     </div>
-    <div id="content-spacing"></div>
   </div>
+
+  <div class="input-group">
+    <label for="firearm-select">Firearm Type:</label><br />
+    <select name="firearm_type" id="firearm-select" class="select-field">
+      <option value="">Select a firearm</option>
+      {% for f in firearm_choices %}
+        <option value="{{ f }}">{{ f }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="input-group">
+    <label for="magazine-select">Magazine:</label><br />
+    <select name="magazine" id="magazine-select" class="select-field">
+      <option value="">Select a magazine</option>
+      {% for mag in magazines %}
+        <option value="{{ mag.id }}">Magazine {{ mag.id }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <br />
+  <button type="submit" class="button">Submit</button>
+</form>
+
+<!-- Success/Error Messages -->
+{% if error_message %}
+  <div class="error-message">{{ error_message }}</div>
+{% endif %}
+
+{% if success_message %}
+  <div class="success-message">{{ success_message }}</div>
+{% endif %}
+
+<!-- Modal -->
+<div id="rfidModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>RFID Scan Initialization</h2>
+    <p>Serial Number: <span id="modal-serial"></span></p>
+  </div>
+</div>
+
+<!-- Modal Styling -->
+<style>
+/* Modal Styling */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;
+  border-radius: 12px;
+  text-align: center;
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover {
+  color: black;
+}
+</style>
+
+<!-- Form and Modal Styling -->
+<style>
+/* Form Styling */
+#rfid-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+/* Container for Serial Input and Scan Button */
+.serial-input-container {
+  display: flex;
+  gap: 10px; /* Space between input and button */
+}
+
+.input-field, .select-field {
+  border: 2px solid #ddd;
+  background: #eee;
+  padding: 10px;
+  transition: 0.4s;
+  width: 250px;
+  height: 45px;
+  color: #1E1E1E;
+  font-size: 1rem;
+}
+
+.input-field:focus, .select-field:hover {
+  background: #ddd;
+}
+
+.button {
+  background-color: #2C3E50;
+  color: #FFF;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+  height: 45px; /* Match the height of the input */
+}
+
+.button:hover {
+  background-color: #34495E;
+}
+
+/* Message Styling */
+.success-message, .error-message {
+  text-align: center;
+  font-weight: bold;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.success-message {
+  background-color: #e6ffed;
+  color: #135e01;
+  border: 1px solid #b6e7c9;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+</style>
+
+<!-- JavaScript for Modal Behavior -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById("rfidModal");
+    const btn = document.getElementById("openModalBtn");
+    const span = document.getElementsByClassName("close")[0];
+    const modalSerial = document.getElementById("modal-serial");
+    const serialInput = document.getElementById("serial-input");
+
+    btn.onclick = function (event) {
+      event.preventDefault(); // 👈 important to prevent default button action
+
+      const serial = `${Math.floor(10000 + Math.random() * 90000)}`;
+      modalSerial.textContent = serial;
+      modal.style.display = "block";
+
+      setTimeout(() => {
+        modal.style.display = "none";
+        serialInput.value = serial;
+      }, 3000);
+    };
+
+    span.onclick = function () {
+      modal.style.display = "none";
+      serialInput.value = modalSerial.textContent;
+    };
+
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+        serialInput.value = modalSerial.textContent;
+      }
+    };
+  });
+</script>
+
 {% endblock %}

@@ -12,7 +12,4 @@ urlpatterns = [
 
     # Route that triggers the simulated RFID scan view and show the modal form
     path("rfid-scan-entry/", views.rfid_scan_entry, name="rfid-scan-entry"),
-
-    # New: Route for modal-bassed RFID simulation
-    path("rfid-modal-sim/", views.rfid_modal_simulation_view, name="rfid-modal-sim"),
 ]

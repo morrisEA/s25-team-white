@@ -52,8 +52,15 @@
          </li>
          <li> <a
           href="{% url 'armory:index' %}"
-          class="{% if request.path == '/login/' %}active{% endif %}">Armory</a>
+          class="{% if request.path == '/login/' %}active{% endif %}">Issue Firearm</a>
          </li>
+         <li>
+          <a
+            href="{% url 'eventlog:rfid-scan-entry' %}"
+            class="{% if request.path == '/eventlog/' %}active{% endif %}"
+            >Scan Firearm</a
+          >
+          </li>         
           <li>
             <a
               href="{% url 'eventlog:eventlog' %}"

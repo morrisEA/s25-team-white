@@ -35,7 +35,7 @@ class ArmorerAdmin(admin.ModelAdmin):
 
 @admin.register(Magazine)
 class MagazineAdmin(admin.ModelAdmin):
-    list_display = ("id", "total_m9", "total_m4a1", "total_9mm", "total_556", "total_762", "armory_id")
+    list_display = ("id", "total_9mm", "total_556", "total_762", "armory_id")
 
 @admin.register(Firearm)
 class FirearmAdmin(admin.ModelAdmin):

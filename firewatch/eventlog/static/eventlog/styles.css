@@ -315,3 +315,8 @@ table th:hover {
     font-size: 1.1rem;
     padding: 10px 0;
 }
+
+h2 {
+    margin-top: 1rem;
+    font-weight: 700;
+}
